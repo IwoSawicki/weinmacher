@@ -1,6 +1,6 @@
-# Weinmacher Multeau – Website & CMS
+# Weinmacher Mühltal – Website & CMS
 
-Website mit integriertem CMS für den Weinmacher Multeau. Gebaut mit **Next.js 15 + Payload CMS 3** – Frontend und Admin-Bereich laufen als eine einzige App.
+Website mit integriertem CMS für den Weinmacher Mühltal. Gebaut mit **Next.js 15 + Payload CMS 3** – Frontend und Admin-Bereich laufen als eine einzige App.
 
 ## Was der Kunde pflegen kann
 

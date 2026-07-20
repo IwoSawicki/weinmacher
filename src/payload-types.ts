@@ -635,7 +635,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Kontakt {
   id: number;
   /**
-   * z. B. „Weingut Multeau“
+   * z. B. „Weinmacher Mühltal“
    */
   name?: string | null;
   adresse?: string | null;

@@ -16,7 +16,7 @@ export const Kontakt: GlobalConfig = {
       label: 'Name / Firmierung',
       type: 'text',
       admin: {
-        description: 'z. B. „Weingut Multeau“',
+        description: 'z. B. „Weinmacher Mühltal“',
       },
     },
     {

@@ -19,7 +19,7 @@ export default async function HomePage() {
   return (
     <div className="home">
       <div className="content">
-        <h1>Weinmacher Multeau</h1>
+        <h1>Weinmacher Mühltal</h1>
         <p>Die Website befindet sich im Aufbau.</p>
         <p>
           Im System gepflegt: {weine.totalDocs} Weine, {events.totalDocs} Events,{' '}

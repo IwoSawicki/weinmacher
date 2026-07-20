@@ -25,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     meta: {
-      titleSuffix: '– Weinmacher Multeau',
+      titleSuffix: '– Weinmacher Mühltal',
     },
     dateFormat: 'dd.MM.yyyy',
   },
