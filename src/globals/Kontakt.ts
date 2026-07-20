@@ -44,7 +44,8 @@ export const Kontakt: GlobalConfig = {
       label: 'Öffnungszeiten',
       type: 'textarea',
       admin: {
-        description: 'Freier Text, z. B. „Fr 15–18 Uhr, Sa 10–16 Uhr und nach Vereinbarung“.',
+        description:
+          'Eine Zeile pro Eintrag im Format „Tage | Zeiten“, z. B. „Mi – Fr | 15 – 19 Uhr“. Zeilen mit „geschlossen“ werden abgedunkelt dargestellt.',
       },
     },
     {

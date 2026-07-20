@@ -5,10 +5,11 @@
 - **Phase 1 (fertig):** Payload CMS 3 + Next.js 15, deutsches Admin, Collections
   „Weine“, „Events“ (mit PDF), „Verleih“, Mediathek, Kontakt-Global. Deployment
   per Dockerfile auf Dokploy, Uploads unter `/app/uploads`.
-- **Phase 2 (dieser Plan):** Frontend der Website nach der Webflow-Designvorlage
-  **Vinsor** bauen. Referenz-Seite: <https://vinsor.webflow.io/home-one>
-  („Home One“). Die Vorlage liegt als wget-Mirror im Repo unter
-  `design-vorlage/` (reine Referenz, nicht Teil des Builds).
+- **Phase 2 (dieser Plan):** Frontend der Website nach der mit **Claude Design**
+  erstellten und vom Kunden abgenommenen Vorlage bauen (CI: Lila `#6d4a7e` /
+  Bronze `#a5793f`). Die Vorlage liegt im Repo unter `design-vorlage/`:
+  `index.html` ist der Original-Export, `vorlage-startseite.html` die daraus
+  extrahierte, lesbare Referenz (reine Referenz, nicht Teil des Builds).
 
 ## Oberste Regel: Die Vorlage ist das Gesetz
 
@@ -41,13 +42,16 @@ der PR/Commit-Message dokumentieren.
 ### 1. Vorlage analysieren
 
 - HTML der Startseite lesen: Section-Struktur, Klassennamen, DOM-Aufbau.
-- Webflow-CSS auswerten: Farben, Fonts, Größen, Abstände, Radii, Breakpoints
-  → als Design-Tokens (CSS-Variablen) in `src/app/(frontend)/` ablegen.
-- Fonts aus dem Mirror extrahieren und lokal einbinden.
-- Animationen identifizieren (CSS-Transitions vs. IX2-Interaktionen) und je
-  Animation notieren: Trigger, Eigenschaften, Dauer, Easing, Delay.
-- Bilder/Grafiken der Vorlage als Platzhalter übernehmen, bis echte Inhalte da
-  sind (lizenzpflichtige Template-Bilder vor Go-Live ersetzen).
+- CSS der Vorlage auswerten: Farben, Fonts, Größen, Abstände, Radii,
+  Breakpoints → als Design-Tokens (CSS-Variablen) in `src/app/(frontend)/`
+  ablegen.
+- Fonts aus dem Export extrahieren und lokal einbinden (`next/font/local`).
+- Animationen übernehmen: Hero-Einblendung (`heroIn`, 1.1s,
+  `cubic-bezier(0.22,1,0.36,1)`), Scroll-Reveal per IntersectionObserver
+  (translateY(28px) → 0, 0.9s, threshold 0.12, Above-the-fold ausgenommen),
+  alle Hover-Transitions.
+- Bildflächen der Vorlage (Hero, Porträt) als gestaltete Platzhalter
+  umsetzen, bis echte Fotos da sind.
 
 ### 2. Startseite bauen – alle Sections der Vorlage
 

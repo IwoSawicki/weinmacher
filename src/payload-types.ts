@@ -642,7 +642,7 @@ export interface Kontakt {
   telefon?: string | null;
   email?: string | null;
   /**
-   * Freier Text, z. B. „Fr 15–18 Uhr, Sa 10–16 Uhr und nach Vereinbarung“.
+   * Eine Zeile pro Eintrag im Format „Tage | Zeiten“, z. B. „Mi – Fr | 15 – 19 Uhr“. Zeilen mit „geschlossen“ werden abgedunkelt dargestellt.
    */
   oeffnungszeiten?: string | null;
   instagram?: string | null;
