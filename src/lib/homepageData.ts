@@ -10,7 +10,7 @@ export async function ladeStartseitenDaten() {
   const heute = new Date()
   heute.setHours(0, 0, 0, 0)
 
-  const [weine, events, verleih, kontakt] = await Promise.all([
+  const [weine, events, verleih, kontakt, website] = await Promise.all([
     payload.find({ collection: 'weine', sort: '_order', limit: 100 }),
     payload.find({
       collection: 'events',
@@ -20,6 +20,7 @@ export async function ladeStartseitenDaten() {
     }),
     payload.find({ collection: 'verleih', sort: '_order', limit: 100 }),
     payload.findGlobal({ slug: 'kontakt' }),
+    payload.findGlobal({ slug: 'website' }),
   ])
 
   return {
@@ -27,5 +28,6 @@ export async function ladeStartseitenDaten() {
     events: events.docs,
     verleih: verleih.docs,
     kontakt,
+    website,
   }
 }
