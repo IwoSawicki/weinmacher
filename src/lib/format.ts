@@ -55,3 +55,23 @@ export function normalisiereLink(link: string): string {
   }
   return link
 }
+
+export const OEFFNUNGSZEITEN_FALLBACK: Array<[string, string]> = [
+  ['Mi – Fr', '15 – 19 Uhr'],
+  ['Samstag', '10 – 18 Uhr'],
+  ['Sonntag', '11 – 17 Uhr'],
+  ['Mo & Di', 'geschlossen'],
+]
+
+// Öffnungszeiten aus dem Textarea-Feld: eine Zeile pro Eintrag, optional „links | rechts“
+export function parseOeffnungszeiten(text?: string | null): Array<[string, string] | [string]> {
+  if (!text) return OEFFNUNGSZEITEN_FALLBACK
+  return text
+    .split('\n')
+    .map((zeile) => zeile.trim())
+    .filter(Boolean)
+    .map((zeile) => {
+      const teile = zeile.split('|').map((t) => t.trim())
+      return teile.length >= 2 ? [teile[0], teile.slice(1).join(' ')] : [zeile]
+    })
+}

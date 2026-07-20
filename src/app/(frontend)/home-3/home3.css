@@ -1,0 +1,890 @@
+/* ============================================================
+   Design-Variante 3 – "Editorial / Magazin"
+   Große Display-Typo, nummerierte Sektionen, Marquee.
+   Werte 1:1 aus der Claude-Design-Vorlage v3, unter .v3 gescopet.
+   ============================================================ */
+.v3 {
+  --bronze: #a5793f;
+  --lila: #6d4a7e;
+  --ink: #201a1e;
+  --muted: #7b7076;
+  --bg: #f7f4ef;
+  --line: rgba(32, 26, 30, 0.12);
+  --serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
+  --sans: var(--font-sans), 'Karla', 'Helvetica Neue', sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+}
+.v3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.v3 ::selection {
+  background: #6d4a7e;
+  color: #fff;
+}
+.v3 em {
+  font-style: italic;
+  font-weight: 400;
+}
+@keyframes v3HeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes v3Marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Graue Platzhalter */
+.v3 .ph {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e6e0d7 0%, #d9d2c8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(32, 26, 30, 0.35);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 12px;
+}
+.v3 .ph-dark {
+  background: linear-gradient(135deg, #332c31 0%, #241f23 100%);
+  color: rgba(247, 244, 239, 0.35);
+}
+
+/* ---------- NAV ---------- */
+.v3-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px clamp(20px, 4vw, 48px);
+}
+.v3-nav-logo {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+.v3-nav-logo span {
+  color: var(--bronze);
+}
+.v3-nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(247, 244, 239, 0.75);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px;
+}
+.v3-nav-link {
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  padding: 9px 16px;
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+.v3-nav-link:hover {
+  background: rgba(32, 26, 30, 0.07);
+  color: var(--ink);
+}
+.v3-nav-cta {
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  padding: 9px 20px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #f7f4ef;
+  transition: background 0.25s;
+}
+.v3-nav-cta:hover {
+  background: var(--lila);
+  color: #fff;
+}
+.v3-burger {
+  display: none;
+  background: var(--ink);
+  border: none;
+  cursor: pointer;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+.v3-burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: #f7f4ef;
+}
+.v3-overlay {
+  position: fixed;
+  inset: 10px;
+  z-index: 60;
+  background: #201a1e;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px;
+}
+.v3-overlay-label {
+  margin: 0 0 18px;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(247, 244, 239, 0.4);
+}
+.v3-overlay a {
+  font-family: var(--serif);
+  font-size: clamp(36px, 9vw, 52px);
+  line-height: 1.15;
+  color: #f7f4ef;
+}
+.v3-overlay a.ist-kontakt {
+  font-style: italic;
+  color: #c9a066;
+}
+.v3-overlay-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(247, 244, 239, 0.1);
+  border: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  font-size: 22px;
+  color: #f7f4ef;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ---------- HERO ---------- */
+.v3-hero {
+  padding: clamp(110px, 14vh, 160px) clamp(20px, 4vw, 48px) 0;
+}
+.v3-hero-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  animation: v3HeroIn 1s var(--ease) both;
+}
+.v3-hero-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.v3-hero-meta p {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.v3-hero-titel {
+  margin: clamp(28px, 4vw, 56px) 0 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(52px, 10.5vw, 160px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.v3-hero-titel em {
+  color: var(--lila);
+}
+.v3-hero-unten {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin: clamp(28px, 4vw, 52px) 0 clamp(28px, 4vw, 48px);
+}
+.v3-hero-text {
+  margin: 0;
+  max-width: 440px;
+  font-size: clamp(16px, 1.4vw, 18px);
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+}
+.v3-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink);
+  color: #f7f4ef;
+  padding: 18px 30px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  transition: background 0.25s, transform 0.25s;
+  white-space: nowrap;
+}
+.v3-hero-cta:hover {
+  background: var(--lila);
+  color: #fff;
+  transform: translateY(-3px);
+}
+.v3-hero-bild {
+  position: relative;
+  height: clamp(340px, 62vh, 640px);
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* ---------- MARQUEE ---------- */
+.v3-marquee {
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  margin-top: clamp(56px, 8vw, 96px);
+  padding: 22px 0;
+  white-space: nowrap;
+}
+.v3-marquee-track {
+  display: inline-flex;
+  width: max-content;
+  animation: v3Marquee 36s linear infinite;
+}
+.v3-marquee-track span {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Section-Kopf (nummeriert) ---------- */
+.v3-section {
+  padding: clamp(80px, 11vw, 170px) clamp(20px, 4vw, 48px);
+}
+.v3-section.kompakt {
+  padding-top: 0;
+}
+.v3-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.v3-eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+.v3-eyebrow.spaced {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.v3-eyebrow-num {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--bronze);
+}
+.v3-eyebrow-label {
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.v3-h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(36px, 4.6vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.v3-h2 em {
+  color: var(--bronze);
+}
+.v3-h2 em.lila {
+  color: var(--lila);
+}
+
+/* ÜBER UNS */
+.v3-ueber-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+}
+.v3-ueber-grid .v3-h2 {
+  margin-bottom: 28px;
+}
+.v3-fliess {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 520px;
+}
+.v3-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 460px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  margin-top: 36px;
+}
+.v3-stat-zahl {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+}
+.v3-stat-label {
+  margin: 4px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.v3-ueber-media {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.v3-ueber-bild {
+  min-height: 380px;
+  height: clamp(380px, 42vw, 540px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.v3-zitat {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(20px, 1.8vw, 24px);
+  line-height: 1.45;
+  color: var(--lila);
+  max-width: 480px;
+}
+.v3-zitat cite {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* WEINE */
+.v3-h2-block {
+  margin: 0 0 clamp(44px, 5vw, 72px);
+  max-width: 700px;
+}
+.v3-grid-weine {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: clamp(24px, 3vw, 40px) clamp(18px, 2vw, 28px);
+}
+.v3-wein {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.v3-wein.ist-ausverkauft {
+  opacity: 0.65;
+}
+.v3-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  background: var(--ink);
+  color: #f7f4ef;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 13px;
+  border-radius: 999px;
+}
+.v3-wein-bild {
+  height: 300px;
+  background: #ede8e0;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s var(--ease);
+}
+.v3-wein:hover .v3-wein-bild {
+  transform: scale(0.975);
+}
+.v3-wein-body {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 18px 4px 0;
+  flex: 1;
+}
+.v3-wein-art {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lila);
+}
+.v3-wein-art.ist-bronze {
+  color: var(--bronze);
+}
+.v3-wein-name {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 27px;
+  line-height: 1.1;
+}
+.v3-wein-rebsorte {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+.v3-wein-besch {
+  margin: 2px 0 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  flex: 1;
+}
+.v3-wein-preiszeile {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.v3-wein-preis {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 500;
+}
+.v3-wein-einheit {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* EVENTS */
+.v3-events-liste {
+  display: flex;
+  flex-direction: column;
+}
+.v3-event {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px 28px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding: clamp(26px, 3vw, 40px) 8px;
+  transition: background 0.3s;
+  border-radius: 16px;
+}
+.v3-event:hover {
+  background: rgba(32, 26, 30, 0.03);
+}
+.v3-event.ist-ausgebucht {
+  opacity: 0.65;
+}
+.v3-event-ende {
+  border-top: 1px solid var(--line);
+}
+.v3-event-datum {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lila);
+}
+.v3-event-titel {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(26px, 2.4vw, 34px);
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.v3-event-badge {
+  background: var(--ink);
+  color: #f7f4ef;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-weight: 400;
+}
+.v3-event-ort {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+.v3-event-besch {
+  margin: 0 0 6px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 420px;
+}
+.v3-event-besch p {
+  margin: 0 0 6px;
+}
+.v3-event-preis {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.v3-event-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-self: start;
+}
+.v3-btn-pdf {
+  display: inline-block;
+  border: 1px solid rgba(32, 26, 30, 0.2);
+  color: var(--ink);
+  padding: 12px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.v3-btn-pdf:hover {
+  background: var(--ink);
+  color: #f7f4ef;
+  border-color: var(--ink);
+}
+.v3-btn-anmelden {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--lila);
+  color: #fff;
+  padding: 12px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  transition: background 0.25s;
+}
+.v3-btn-anmelden:hover {
+  background: var(--bronze);
+  color: #fff;
+}
+.v3-warteliste {
+  display: inline-block;
+  background: rgba(32, 26, 30, 0.06);
+  color: var(--muted);
+  padding: 12px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  cursor: not-allowed;
+}
+
+/* VERLEIH (dunkel) */
+.v3-verleih {
+  padding: 0 10px;
+}
+.v3-verleih-box {
+  background: #201a1e;
+  border-radius: 28px;
+  padding: clamp(72px, 10vw, 150px) clamp(20px, 4vw, 56px);
+}
+.v3-verleih-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.v3-verleih-eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(247, 244, 239, 0.14);
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.v3-verleih-eyebrow .v3-eyebrow-num {
+  color: #c9a066;
+}
+.v3-verleih-eyebrow .v3-eyebrow-label {
+  color: rgba(247, 244, 239, 0.5);
+}
+.v3-verleih-kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(44px, 5vw, 72px);
+}
+.v3-verleih-kopf .v3-h2 {
+  color: #f7f4ef;
+  max-width: 700px;
+}
+.v3-verleih-kopf .v3-h2 em {
+  color: #c9a066;
+}
+.v3-verleih-kopf p {
+  margin: 0;
+  color: rgba(247, 244, 239, 0.55);
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 380px;
+}
+.v3-grid-verleih {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+.v3-verleih-karte {
+  background: rgba(247, 244, 239, 0.04);
+  border: 1px solid rgba(247, 244, 239, 0.1);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease), border-color 0.3s, background 0.3s;
+}
+.v3-verleih-karte:hover {
+  transform: translateY(-6px);
+  border-color: rgba(201, 160, 102, 0.5);
+  background: rgba(247, 244, 239, 0.07);
+}
+.v3-verleih-bild {
+  height: 180px;
+  margin: 8px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+}
+.v3-verleih-body {
+  padding: 14px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.v3-verleih-kat {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c9a066;
+}
+.v3-verleih-name {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 25px;
+  color: #f7f4ef;
+}
+.v3-verleih-besch {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(247, 244, 239, 0.55);
+  flex: 1;
+}
+.v3-verleih-preiszeile {
+  margin: 10px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(247, 244, 239, 0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.v3-verleih-preis {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: #f7f4ef;
+}
+.v3-verleih-status {
+  margin: 0;
+  font-size: 12.5px;
+  color: #8fb573;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.v3-verleih-status.ist-anfrage {
+  color: #c9a066;
+}
+.v3-verleih-status .punkt {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+}
+.v3-verleih-hinweis {
+  margin: 36px 0 0;
+  font-size: 14px;
+  color: rgba(247, 244, 239, 0.4);
+}
+.v3-verleih-hinweis a {
+  color: #c9a066;
+}
+
+/* KONTAKT + FOOTER */
+.v3-footer {
+  padding: clamp(90px, 12vw, 180px) clamp(20px, 4vw, 48px) 0;
+}
+.v3-footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.v3-footer-claim {
+  margin: 0 0 clamp(56px, 7vw, 100px);
+}
+.v3-footer-claim h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(40px, 6.5vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  max-width: 900px;
+  text-wrap: balance;
+}
+.v3-footer-claim a {
+  font-style: italic;
+  color: var(--lila);
+  border-bottom: 2px solid rgba(109, 74, 126, 0.3);
+  transition: color 0.25s, border-color 0.25s;
+}
+.v3-footer-claim a:hover {
+  color: var(--bronze);
+  border-bottom-color: rgba(165, 121, 63, 0.5);
+}
+.v3-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(32px, 5vw, 72px);
+}
+.v3-footer-label {
+  margin: 0 0 16px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.v3-footer p.adr {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.v3-social {
+  display: flex;
+  gap: 10px;
+}
+.v3-social a {
+  border: 1px solid rgba(32, 26, 30, 0.15);
+  color: var(--ink);
+  padding: 10px 18px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  transition: background 0.25s, color 0.25s;
+}
+.v3-social a:hover {
+  background: var(--ink);
+  color: #f7f4ef;
+}
+.v3-oeff-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+}
+.v3-oeff-row.zu {
+  color: var(--muted);
+}
+.v3-watermark {
+  margin: clamp(64px, 9vw, 120px) 0 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(44px, 10.2vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: rgba(32, 26, 30, 0.07);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.v3-footer-bottom {
+  margin-top: 20px;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--muted);
+}
+.v3-footer-bottom a {
+  color: #7b7076;
+}
+.v3-footer-legal {
+  display: flex;
+  gap: 22px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .v3-nav-pill {
+    display: none;
+  }
+  .v3-burger {
+    display: flex;
+  }
+}
