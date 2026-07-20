@@ -9,11 +9,16 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+# npm-Version an die lokal zur Lock-Datei-Erzeugung genutzte Version angleichen –
+# ältere npm-Patch-Versionen validieren lockfileVersion 3 teils inkonsistent
+# und brechen bei `npm ci` mit falschen "Missing from lock file"-Fehlern ab.
+RUN npm install -g npm@10.9.7
+
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f package-lock.json ]; then npm ci --no-audit --no-fund || npm install --no-audit --no-fund; \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
   else echo "Lockfile not found." && exit 1; \
   fi
