@@ -14,6 +14,7 @@ import { Weine } from './collections/Weine'
 import { Events } from './collections/Events'
 import { Verleih } from './collections/Verleih'
 import { Kontakt } from './globals/Kontakt'
+import { Website } from './globals/Website'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,7 +35,7 @@ export default buildConfig({
     fallbackLanguage: 'de',
   },
   collections: [Weine, Events, Verleih, Media, Dokumente, Users],
-  globals: [Kontakt],
+  globals: [Website, Kontakt],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

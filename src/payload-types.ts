@@ -96,9 +96,11 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    website: Website;
     kontakt: Kontakt;
   };
   globalsSelect: {
+    website: WebsiteSelect<false> | WebsiteSelect<true>;
     kontakt: KontaktSelect<false> | KontaktSelect<true>;
   };
   locale: null;
@@ -627,6 +629,25 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Große Bilder, die im Layout der Startseite erscheinen.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "website".
+ */
+export interface Website {
+  id: number;
+  /**
+   * Großes Titelbild ganz oben auf der Startseite, z. B. Weinberg im Abendlicht. Querformat, möglichst hochauflösend (mind. 1920 px breit).
+   */
+  heroBild?: (number | null) | Media;
+  /**
+   * Porträt- oder Kellerfoto in der Sektion „Über uns“. Hochformat passt am besten.
+   */
+  ueberBild?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Kontaktdaten, die auf der Website angezeigt werden (z. B. im Footer).
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -649,6 +670,17 @@ export interface Kontakt {
   facebook?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "website_select".
+ */
+export interface WebsiteSelect<T extends boolean = true> {
+  heroBild?: T;
+  ueberBild?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
