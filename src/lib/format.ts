@@ -28,6 +28,16 @@ export function formatEventDatum(iso: string): string {
   return `${datum} · ${zeitFormatter.format(d)} Uhr`
 }
 
+// Nur das Datum, ohne Uhrzeit: "Fr, 11. September 2026"
+export function formatEventDatumOnly(iso: string): string {
+  return datumFormatter.format(new Date(iso)).replace('.,', ',')
+}
+
+// Nur die Uhrzeit: "19:00 Uhr"
+export function formatEventZeit(iso: string): string {
+  return `${zeitFormatter.format(new Date(iso))} Uhr`
+}
+
 export const WEINART_LABELS: Record<string, string> = {
   weisswein: 'Weißwein',
   rotwein: 'Rotwein',
