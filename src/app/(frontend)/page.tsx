@@ -15,6 +15,7 @@ import {
   weinartIstBronze,
 } from '@/lib/format'
 
+import { EventsCountdown } from './EventsCountdown'
 import { Nav2 } from './home-2/Nav2'
 import './home-2/home2.css'
 import './home-3/home3.css'
@@ -306,6 +307,75 @@ export default async function HomePage() {
                 Kommende <em>Veranstaltungen</em>
               </h2>
               <div className="evt2-liste">
+                {events.map((event) => {
+                  const pdf =
+                    event.pdf && typeof event.pdf === 'object' && event.pdf.url
+                      ? event.pdf.url
+                      : null
+                  return (
+                    <article
+                      key={event.id}
+                      data-reveal=""
+                      className={`evt2-card${event.ausgebucht ? ' ist-ausgebucht' : ''}`}
+                    >
+                      <div className="evt2-head">
+                        <p className="evt2-datum">{formatEventDatum(event.datum)}</p>
+                        {event.ausgebucht && <span className="evt2-badge">Ausgebucht</span>}
+                      </div>
+                      <h3 className="evt2-titel">{event.titel}</h3>
+                      {event.ort && <p className="evt2-ort">{event.ort}</p>}
+                      {event.beschreibung && (
+                        <div className="evt2-besch">
+                          <RichText data={event.beschreibung} />
+                        </div>
+                      )}
+                      <div className="evt2-foot">
+                        {event.preis && <p className="evt2-preis">{event.preis}</p>}
+                        <div className="evt2-btns">
+                          {pdf && (
+                            <a
+                              href={pdf}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="v3-btn-pdf"
+                            >
+                              Details (PDF)
+                            </a>
+                          )}
+                          {!event.ausgebucht && event.anmeldeLink && (
+                            <a
+                              href={normalisiereLink(event.anmeldeLink)}
+                              className="v3-btn-anmelden"
+                            >
+                              Anmelden <span style={{ fontSize: 15, lineHeight: 1 }}>→</span>
+                            </a>
+                          )}
+                          {event.ausgebucht && <span className="v3-warteliste">Warteliste</span>}
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* EVENTS – Variante 3 (großer Countdown + gestapelte Events) */}
+        {events.length > 0 && (
+          <section className="v3-section kompakt">
+            <div className="v3-inner">
+              <div data-reveal="" className="v3-eyebrow">
+                <span className="v3-eyebrow-num">(03·c)</span>
+                <span className="v3-eyebrow-label">Events – Variante 3</span>
+              </div>
+              <h2 data-reveal="" className="v3-h2 v3-h2-block" style={{ maxWidth: 760 }}>
+                Kommende <em>Veranstaltungen</em>
+              </h2>
+
+              <EventsCountdown targetIso={events[0].datum} titel={events[0].titel} />
+
+              <div className="evt3-liste">
                 {events.map((event) => {
                   const pdf =
                     event.pdf && typeof event.pdf === 'object' && event.pdf.url
