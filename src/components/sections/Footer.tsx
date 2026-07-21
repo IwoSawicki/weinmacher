@@ -98,9 +98,8 @@ export function Footer({ kontakt }: { kontakt: Kontakt }) {
             © {new Date().getFullYear()} {name} · Genuss mit Verantwortung – ab 18 Jahren.
           </p>
           <div className="footer-rechtliches">
-            <a href="#">Impressum</a>
-            <a href="#">Datenschutz</a>
-            <a href="#">AGB Verleih</a>
+            <a href="/impressum">Impressum</a>
+            <a href="/datenschutz">Datenschutz</a>
           </div>
         </div>
       </div>

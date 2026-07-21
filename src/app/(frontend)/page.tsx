@@ -26,6 +26,14 @@ export const dynamic = 'force-dynamic'
 const MARQUEE =
   'Riesling  ✳  Spätburgunder  ✳  Grauburgunder  ✳  Portugieser  ✳  Handlese  ✳  Gewölbekeller  ✳  Steillage  ✳  Seit 1962  ✳  '
 
+// Passendes Platzhalter-SVG je Verleih-Kategorie (solange kein echtes Foto da ist)
+function verleihPlatzhalter(kategorie?: string | null): string {
+  if (kategorie === 'ausschank' || kategorie === 'technik' || kategorie === 'mobiliar') {
+    return kategorie
+  }
+  return 'sonstiges'
+}
+
 export default async function HomePage() {
   const { weine, events, verleih, kontakt, website } = await ladeStartseitenDaten()
 
@@ -49,7 +57,7 @@ export default async function HomePage() {
           <div className="v2-hero-frame">
             <div className="v2-hero-img">
               {heroBild ? (
-                <Bild media={heroBild} alt="Weinberg im Mühltal" sizes="100vw" />
+                <Bild media={heroBild} alt="Weinberg im Mühltal" size="hero" sizes="100vw" priority />
               ) : (
                 <div className="ph" aria-hidden="true">
                   Hero: Weinberg im Abendlicht
@@ -124,7 +132,12 @@ export default async function HomePage() {
               <div data-reveal="" className="v3-ueber-media">
                 <div className="v3-ueber-bild">
                   {ueberBild ? (
-                    <Bild media={ueberBild} alt="Frank Köth, Winzer" sizes="(max-width: 960px) 100vw, 45vw" />
+                    <Bild
+                      media={ueberBild}
+                      alt="Frank Köth, Winzer"
+                      size="hero"
+                      sizes="(max-width: 960px) 100vw, 45vw"
+                    />
                   ) : (
                     <div className="ph" aria-hidden="true">
                       Porträt: Frank Köth
@@ -174,8 +187,8 @@ export default async function HomePage() {
                           <Bild
                             media={wein.bild}
                             alt={wein.name}
+                            size="card"
                             sizes="(max-width: 960px) 100vw, 25vw"
-                            contain
                           />
                         ) : (
                           <div className="ph" aria-hidden="true">
@@ -281,6 +294,72 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* EVENTS – Variante 2 (prominentere Kacheln) */}
+        {events.length > 0 && (
+          <section className="v3-section kompakt">
+            <div className="v3-inner">
+              <div data-reveal="" className="v3-eyebrow">
+                <span className="v3-eyebrow-num">(03·b)</span>
+                <span className="v3-eyebrow-label">Events – Variante 2</span>
+              </div>
+              <h2 data-reveal="" className="v3-h2 v3-h2-block" style={{ maxWidth: 760 }}>
+                Kommende <em>Veranstaltungen</em>
+              </h2>
+              <div className="evt2-liste">
+                {events.map((event) => {
+                  const pdf =
+                    event.pdf && typeof event.pdf === 'object' && event.pdf.url
+                      ? event.pdf.url
+                      : null
+                  return (
+                    <article
+                      key={event.id}
+                      data-reveal=""
+                      className={`evt2-card${event.ausgebucht ? ' ist-ausgebucht' : ''}`}
+                    >
+                      <div className="evt2-head">
+                        <p className="evt2-datum">{formatEventDatum(event.datum)}</p>
+                        {event.ausgebucht && <span className="evt2-badge">Ausgebucht</span>}
+                      </div>
+                      <h3 className="evt2-titel">{event.titel}</h3>
+                      {event.ort && <p className="evt2-ort">{event.ort}</p>}
+                      {event.beschreibung && (
+                        <div className="evt2-besch">
+                          <RichText data={event.beschreibung} />
+                        </div>
+                      )}
+                      <div className="evt2-foot">
+                        {event.preis && <p className="evt2-preis">{event.preis}</p>}
+                        <div className="evt2-btns">
+                          {pdf && (
+                            <a
+                              href={pdf}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="v3-btn-pdf"
+                            >
+                              Details (PDF)
+                            </a>
+                          )}
+                          {!event.ausgebucht && event.anmeldeLink && (
+                            <a
+                              href={normalisiereLink(event.anmeldeLink)}
+                              className="v3-btn-anmelden"
+                            >
+                              Anmelden <span style={{ fontSize: 15, lineHeight: 1 }}>→</span>
+                            </a>
+                          )}
+                          {event.ausgebucht && <span className="v3-warteliste">Warteliste</span>}
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* VERLEIH */}
         <section id="verleih" className="v3-verleih">
           <div className="v3-verleih-box">
@@ -311,12 +390,22 @@ export default async function HomePage() {
                             <Bild
                               media={bild}
                               alt={item.name}
+                              size="card"
                               sizes="(max-width: 960px) 100vw, 25vw"
                             />
                           ) : (
-                            <div className="ph ph-dark" aria-hidden="true">
-                              {item.name}
-                            </div>
+                            <img
+                              src={`/placeholders/verleih-${verleihPlatzhalter(item.kategorie)}.svg`}
+                              alt=""
+                              aria-hidden="true"
+                              style={{
+                                position: 'absolute',
+                                inset: 0,
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                              }}
+                            />
                           )}
                         </div>
                         <div className="v3-verleih-body">
@@ -427,9 +516,8 @@ export default async function HomePage() {
                 © {new Date().getFullYear()} {name} · Genuss mit Verantwortung – ab 18 Jahren.
               </p>
               <div className="v3-footer-legal">
-                <a href="#">Impressum</a>
-                <a href="#">Datenschutz</a>
-                <a href="#">AGB Verleih</a>
+                <a href="/impressum">Impressum</a>
+                <a href="/datenschutz">Datenschutz</a>
               </div>
             </div>
           </div>

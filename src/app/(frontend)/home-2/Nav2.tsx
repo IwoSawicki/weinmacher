@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const LINKS = [
   { href: '#ueber', label: 'Über uns' },
@@ -11,6 +11,14 @@ const LINKS = [
 
 export function Nav2() {
   const [offen, setOffen] = useState(false)
+
+  // Scrollen sperren, solange das Menü offen ist
+  useEffect(() => {
+    document.body.style.overflow = offen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [offen])
 
   return (
     <>
@@ -28,20 +36,23 @@ export function Nav2() {
             Kontakt
           </a>
         </div>
-        <button className="v2-burger" aria-label="Menü" onClick={() => setOffen(true)}>
+        <button
+          className="v2-burger"
+          aria-label="Menü öffnen"
+          aria-expanded={offen}
+          onClick={() => setOffen(true)}
+        >
           <span />
           <span />
         </button>
       </nav>
-      {offen && (
-        <div className="v2-overlay">
-          <button
-            className="v2-overlay-close"
-            aria-label="Schließen"
-            onClick={() => setOffen(false)}
-          >
-            ×
-          </button>
+
+      <div className={`v2-menu${offen ? ' offen' : ''}`} role="dialog" aria-modal="true" aria-hidden={!offen}>
+        <button className="v2-menu-close" aria-label="Menü schließen" onClick={() => setOffen(false)}>
+          ×
+        </button>
+        <p className="v2-menu-hallo">Hallo, schön, dass Sie hier sind.</p>
+        <nav className="v2-menu-links">
           {LINKS.map((link) => (
             <a key={link.href} href={link.href} onClick={() => setOffen(false)}>
               {link.label}
@@ -50,8 +61,8 @@ export function Nav2() {
           <a href="#kontakt" className="ist-kontakt" onClick={() => setOffen(false)}>
             Kontakt
           </a>
-        </div>
-      )}
+        </nav>
+      </div>
     </>
   )
 }

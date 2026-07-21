@@ -8,7 +8,7 @@
   --lila: #6d4a7e;
   --ink: #241d22;
   --muted: #7b7076;
-  --bg: #faf8f5;
+  --bg: #ffffff;
   --line: rgba(36, 29, 34, 0.12);
   --serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
   --sans: var(--font-sans), 'Karla', 'Helvetica Neue', sans-serif;
@@ -222,7 +222,7 @@
   border-radius: 28px;
   overflow: hidden;
   position: relative;
-  background: #eee8df;
+  background: #ffffff;
 }
 .det-media.hoch {
   aspect-ratio: 3 / 4;
@@ -444,4 +444,60 @@
   .det-burger {
     display: flex;
   }
+}
+
+/* ---------- Button-/CTA-Textfarben (höhere Spezifität als ".det a") ---------- */
+.det a.det-nav-cta { color: #fff; }
+.det a.det-btn-primary { color: #fff; }
+.det a.det-btn-ghost { color: var(--ink); }
+.det a.det-btn-ghost:hover { color: #fff; }
+.det a.det-back { color: var(--muted); }
+.det a.det-back:hover { color: var(--bronze); }
+
+/* ---------- Rechtsseiten (Impressum / Datenschutz) ---------- */
+.det-legal {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(96px, 13vh, 150px) clamp(20px, 5vw, 56px) clamp(64px, 9vw, 120px);
+}
+.det-legal h1 {
+  margin: 8px 0 32px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(38px, 6vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.det-legal h2 {
+  margin: 44px 0 14px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.2;
+}
+.det-legal h3 {
+  margin: 28px 0 8px;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+.det-legal p,
+.det-legal address,
+.det-legal li {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--muted);
+  font-style: normal;
+}
+.det-legal p { margin: 0 0 14px; }
+.det-legal address { margin: 0 0 14px; }
+.det-legal ul { margin: 0 0 14px; padding-left: 20px; }
+.det-legal a { color: var(--lila); }
+.det-legal a:hover { color: var(--bronze); }
+.det-legal .platzhalter {
+  color: var(--bronze);
+  background: rgba(165, 121, 63, 0.1);
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 14px;
 }

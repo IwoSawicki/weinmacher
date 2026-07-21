@@ -69,7 +69,7 @@ export default async function WeinVorschauPage() {
           {/* Flaschenbild */}
           <div className="det-media hoch">
             {wein.bild ? (
-              <Bild media={wein.bild} alt={wein.name} sizes="(max-width: 860px) 100vw, 45vw" contain />
+              <Bild media={wein.bild} alt={wein.name} size="hero" sizes="(max-width: 860px) 100vw, 45vw" priority />
             ) : (
               <div className="ph" aria-hidden="true">
                 Flasche: {wein.name}

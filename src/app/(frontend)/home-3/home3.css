@@ -8,7 +8,7 @@
   --lila: #6d4a7e;
   --ink: #201a1e;
   --muted: #7b7076;
-  --bg: #f7f4ef;
+  --bg: #ffffff;
   --line: rgba(32, 26, 30, 0.12);
   --serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
   --sans: var(--font-sans), 'Karla', 'Helvetica Neue', sans-serif;
@@ -441,7 +441,7 @@
 }
 .v3-wein-bild {
   height: 300px;
-  background: #ede8e0;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
   position: relative;
@@ -888,4 +888,110 @@
   .v3-burger {
     display: flex;
   }
+}
+
+/* ---------- Button-/CTA-Textfarben (höhere Spezifität als ".v3 a") ---------- */
+.v3 a.v3-nav-cta { color: #fff; }
+.v3 a.v3-hero-cta { color: #fff; }
+.v3 a.v3-btn-anmelden { color: #fff; }
+.v3 a.v3-btn-pdf { color: var(--ink); }
+.v3 a.v3-btn-pdf:hover { color: #f7f4ef; }
+
+/* ---------- Events – Variante 2 (prominente Kacheln) ---------- */
+.evt2-liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: clamp(18px, 2vw, 26px);
+}
+.evt2-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--lila);
+  border-radius: 22px;
+  padding: clamp(26px, 3vw, 40px);
+  box-shadow: 0 8px 26px rgba(32, 26, 30, 0.06);
+  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s;
+}
+.evt2-card:hover {
+  box-shadow: 0 22px 48px rgba(32, 26, 30, 0.12);
+  transform: translateY(-5px);
+  border-left-color: var(--bronze);
+}
+.evt2-card.ist-ausgebucht {
+  opacity: 0.72;
+}
+.evt2-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.evt2-datum {
+  margin: 0;
+  display: inline-block;
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lila);
+  background: rgba(109, 74, 126, 0.1);
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+.evt2-badge {
+  background: var(--ink);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 13px;
+  border-radius: 999px;
+}
+.evt2-titel {
+  margin: 4px 0 0;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.evt2-ort {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--bronze);
+  letter-spacing: 0.03em;
+}
+.evt2-besch {
+  margin: 4px 0;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.evt2-besch p {
+  margin: 0 0 8px;
+}
+.evt2-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.evt2-preis {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.evt2-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }

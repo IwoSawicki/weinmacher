@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Verleih – Bild folgt">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a2228"/>
+      <stop offset="1" stop-color="#1b151a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <g fill="none" stroke="#c9a066" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <!-- Kiste -->
+    <path d="M162 120 h76 v60 h-76 z"/>
+    <path d="M162 120 l20 -18 h76 l-20 18"/>
+    <path d="M238 120 l20 -18 v60 l-20 18"/>
+    <path d="M162 142 h76"/>
+  </g>
+  <text x="200" y="238" text-anchor="middle" fill="#c9a066" opacity="0.55" font-family="Georgia, 'Times New Roman', serif" font-size="15" letter-spacing="3">BILD FOLGT</text>
+</svg>

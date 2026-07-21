@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Technik – Bild folgt">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a2228"/>
+      <stop offset="1" stop-color="#1b151a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <g fill="none" stroke="#c9a066" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <!-- Glühbirne -->
+    <circle cx="200" cy="118" r="30"/>
+    <path d="M188 145 h24 M191 153 h18 M195 161 h10"/>
+    <path d="M200 100 v14 M193 121 l7 7 7 -7"/>
+    <!-- Strahlen -->
+    <path d="M200 74 v10 M150 118 h-10 M250 118 h10 M164 82 l7 7 M236 82 l-7 7"/>
+  </g>
+  <text x="200" y="238" text-anchor="middle" fill="#c9a066" opacity="0.55" font-family="Georgia, 'Times New Roman', serif" font-size="15" letter-spacing="3">BILD FOLGT</text>
+</svg>

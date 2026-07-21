@@ -85,7 +85,7 @@ export default async function EventVorschauPage() {
           {/* Bild */}
           <div className="det-media quer">
             {bild ? (
-              <Bild media={bild} alt={titel} sizes="(max-width: 860px) 100vw, 45vw" />
+              <Bild media={bild} alt={titel} size="hero" sizes="(max-width: 860px) 100vw, 45vw" priority />
             ) : (
               <div className="ph" aria-hidden="true">
                 Bild: {titel}

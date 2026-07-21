@@ -29,22 +29,31 @@ export const Media: CollectionConfig = {
   upload: {
     staticDir: path.resolve(process.cwd(), 'uploads/media'),
     mimeTypes: ['image/*'],
+    // Alle erzeugten Größen als WebP ausliefern (deutlich kleiner als PNG/JPEG).
+    // Greift für neu hochgeladene Bilder; bereits vorhandene ggf. neu hochladen.
+    formatOptions: {
+      format: 'webp',
+      options: { quality: 78 },
+    },
     imageSizes: [
       {
         name: 'thumbnail',
         width: 400,
         height: 300,
         position: 'centre',
+        formatOptions: { format: 'webp', options: { quality: 78 } },
       },
       {
         name: 'card',
         width: 768,
         height: undefined,
+        formatOptions: { format: 'webp', options: { quality: 78 } },
       },
       {
         name: 'hero',
         width: 1920,
         height: undefined,
+        formatOptions: { format: 'webp', options: { quality: 80 } },
       },
     ],
     adminThumbnail: 'thumbnail',
