@@ -215,10 +215,12 @@
   font-size: 12.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(30, 22, 30, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   padding: 8px 16px;
   border-radius: 999px;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .v2-hero-titel {
   margin: 0 0 20px;
