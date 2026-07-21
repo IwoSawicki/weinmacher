@@ -235,6 +235,10 @@ export interface Event {
    */
   ort?: string | null;
   /**
+   * Für mehrtägige Events: eine Zeile pro Tag im Format „Tag | Uhrzeit“, z. B. „Samstag | ab 17 Uhr“. Wird als übersichtliche Liste angezeigt.
+   */
+  zeiten?: string | null;
+  /**
    * Alle Details zum Event – Ablauf, was dabei ist, für wen es gedacht ist.
    */
   beschreibung?: {
@@ -471,6 +475,7 @@ export interface EventsSelect<T extends boolean = true> {
   titel?: T;
   datum?: T;
   ort?: T;
+  zeiten?: T;
   beschreibung?: T;
   preis?: T;
   bild?: T;

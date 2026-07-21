@@ -131,7 +131,7 @@ export async function GET(req: NextRequest) {
   }
   if (resetEvents || eventsCount.totalDocs === 0) {
     const beschr = lexical(
-      'WeinZeit – offener Ausschank im Weinberg auf der Schmallert in Nieder-Ramstadt. Samstag ab 17 Uhr, Sonntag ab 14 Uhr. Kommen Sie vorbei – wir freuen uns auf Sie.',
+      'WeinZeit – offener Ausschank im Weinberg auf der Schmallert in Nieder-Ramstadt. Ein ganzes Wochenende bei Wein und guter Aussicht. Kommen Sie vorbei – wir freuen uns auf Sie.',
     )
     const events = [
       { datum: '2026-07-25T17:00:00+02:00' },
@@ -142,6 +142,7 @@ export async function GET(req: NextRequest) {
       titel: 'WeinZeit – Ausschank im Weinberg',
       datum: e.datum,
       ort: 'Weinberg auf der Schmallert, Nieder-Ramstadt',
+      zeiten: 'Samstag | ab 17 Uhr\nSonntag | ab 14 Uhr',
       beschreibung: beschr,
       preis: 'Eintritt frei',
       ausgebucht: false,

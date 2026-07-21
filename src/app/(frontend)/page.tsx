@@ -6,6 +6,7 @@ import { ScrollReveal } from '@/components/ScrollReveal'
 import { ladeStartseitenDaten } from '@/lib/homepageData'
 import {
   formatEventDatum,
+  formatEventDatumOnly,
   formatPreis,
   normalisiereLink,
   OEFFNUNGSZEITEN_FALLBACK,
@@ -33,8 +34,8 @@ const MARQUEE_WORDS = [
   'Portugieser',
   'Handlese',
   'Gewölbekeller',
-  'Steillage',
-  'Seit 1962',
+  'Biologischer Anbau',
+  'Familienweingut',
 ]
 
 // Stern-Trenner als SVG (statt Emoji – rendert auf allen Geräten gleich)
@@ -106,8 +107,8 @@ export default async function HomePage() {
                 <p className="v2-hero-kicker">Familienweingut im Mühltal</p>
                 <h1 className="v2-hero-titel">Wein, der nach Zuhause schmeckt.</h1>
                 <p className="v2-hero-text">
-                  Handgelesen, langsam ausgebaut, in kleinen Mengen gefüllt – seit drei Generationen
-                  an den Hängen des Mühltals.
+                  Biologisch angebaut, handgelesen und in kleinen Mengen gefüllt – an den Hängen des
+                  Mühltals, unserer Heimat.
                 </p>
               </div>
               <a href="#weine" className="v2-hero-cta">
@@ -141,30 +142,31 @@ export default async function HomePage() {
             <div className="v3-ueber-grid">
               <div data-reveal="">
                 <h2 className="v3-h2">
-                  Drei Generationen, ein Tal, <em>ehrlicher</em> Wein.
+                  Biologischer Anbau, <em>mitten</em> in der Heimat.
                 </h2>
                 <p className="v3-fliess">
-                  Was 1962 mit zwei Hektar Steillage begann, führt Frank Köth heute in dritter
-                  Generation weiter: acht Hektar Riesling, Burgunder und alte rote Sorten, von Hand
-                  gepflegt und schonend im Gewölbekeller ausgebaut.
+                  Kein altes Traditionshaus, sondern ein junges Familienweingut: 2010 hat Frank Köth
+                  den Grundstein gelegt, zwei Weinberge im Mühltal gekauft und angefangen, seinen
+                  eigenen Wein zu machen. Bis heute wächst das Weingut mit jedem Jahrgang – Rebe für
+                  Rebe, von Hand.
                 </p>
                 <p className="v3-fliess">
-                  Wir arbeiten naturnah, verzichten auf Herbizide und lassen jedem Jahrgang die Zeit,
-                  die er braucht. Das Ergebnis sind Weine mit klarer Frucht, feiner Mineralität – und
-                  der Handschrift des Mühltals.
+                  Wir setzen auf biologischen, naturnahen Anbau: keine Herbizide, gesunder Boden,
+                  kurze Wege. In einem kleinen, familiären Team kümmern wir uns um jede Traube – für
+                  Wein, der ehrlich gemacht ist und nach Zuhause schmeckt.
                 </p>
                 <div className="v3-stats">
                   <div>
                     <p className="v3-stat-zahl">
-                      <CountUp to={1962} from={1900} />
+                      <CountUp to={2010} from={1950} />
                     </p>
                     <p className="v3-stat-label">Gegründet</p>
                   </div>
                   <div>
                     <p className="v3-stat-zahl">
-                      <CountUp to={8} suffix=" ha" />
+                      <CountUp to={2} />
                     </p>
-                    <p className="v3-stat-label">Rebfläche</p>
+                    <p className="v3-stat-label">Weinberge</p>
                   </div>
                   <div>
                     <p className="v3-stat-zahl">
@@ -296,11 +298,31 @@ export default async function HomePage() {
                       className={`evt2-card${event.ausgebucht ? ' ist-ausgebucht' : ''}`}
                     >
                       <div className="evt2-head">
-                        <p className="evt2-datum">{formatEventDatum(event.datum)}</p>
+                        <p className="evt2-datum">
+                          {event.zeiten
+                            ? formatEventDatumOnly(event.datum)
+                            : formatEventDatum(event.datum)}
+                        </p>
                         {event.ausgebucht && <span className="evt2-badge">Ausgebucht</span>}
                       </div>
                       <h3 className="evt2-titel">{event.titel}</h3>
                       {event.ort && <p className="evt2-ort">{event.ort}</p>}
+                      {event.zeiten && (
+                        <ul className="evt2-zeiten">
+                          {parseOeffnungszeiten(event.zeiten).map((z, i) => (
+                            <li key={i}>
+                              {z.length === 2 ? (
+                                <>
+                                  <span className="evt2-zeit-tag">{z[0]}</span>
+                                  <span className="evt2-zeit-wert">{z[1]}</span>
+                                </>
+                              ) : (
+                                <span className="evt2-zeit-tag">{z[0]}</span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                       {event.beschreibung && (
                         <div className="evt2-besch">
                           <RichText data={event.beschreibung} />

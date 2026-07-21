@@ -54,6 +54,15 @@ export const Events: CollectionConfig = {
       ],
     },
     {
+      name: 'zeiten',
+      label: 'Termin-Zeiten (Aufzählung)',
+      type: 'textarea',
+      admin: {
+        description:
+          'Für mehrtägige Events: eine Zeile pro Tag im Format „Tag | Uhrzeit“, z. B. „Samstag | ab 17 Uhr“. Wird als übersichtliche Liste angezeigt.',
+      },
+    },
+    {
       name: 'beschreibung',
       label: 'Beschreibung',
       type: 'richText',

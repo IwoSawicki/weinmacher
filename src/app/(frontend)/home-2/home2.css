@@ -180,11 +180,14 @@
   border-radius: 32px;
   overflow: hidden;
 }
-/* Auf Mobil niedriger (nicht die volle Höhe) */
+/* Auf Mobil feste, stabile Höhe.
+   svh (small viewport height) ändert sich NICHT, wenn Chrome die untere
+   Leiste ein-/ausblendet – behebt das nervige Größer-Werden beim Scrollen. */
 @media (max-width: 768px) {
   .v2-hero-frame {
-    min-height: 80vh;
-    min-height: 80dvh;
+    min-height: 90vh; /* Fallback für ältere Browser */
+    min-height: 90svh;
+    height: 90svh;
   }
 }
 .v2-hero-img {
@@ -233,8 +236,8 @@
   margin: 0 0 20px;
   font-family: var(--serif);
   font-weight: 500;
-  font-size: clamp(46px, 7.5vw, 96px);
-  line-height: 1.02;
+  font-size: clamp(52px, 8.4vw, 112px);
+  line-height: 1.0;
   color: #fff;
   text-wrap: balance;
   letter-spacing: -0.01em;
