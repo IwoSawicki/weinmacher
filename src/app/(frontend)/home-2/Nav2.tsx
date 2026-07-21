@@ -12,7 +12,6 @@ const LINKS = [
 export function Nav2() {
   const [offen, setOffen] = useState(false)
 
-  // Scrollen sperren, solange das Menü offen ist
   useEffect(() => {
     document.body.style.overflow = offen ? 'hidden' : ''
     return () => {
@@ -22,7 +21,7 @@ export function Nav2() {
 
   return (
     <>
-      <nav className="v2-nav">
+      <nav className={`v2-nav${offen ? ' ist-offen' : ''}`}>
         <a href="#start" className="v2-nav-logo">
           Weinmacher <span>Mühltal</span>
         </a>
@@ -47,21 +46,36 @@ export function Nav2() {
         </button>
       </nav>
 
-      <div className={`v2-menu${offen ? ' offen' : ''}`} role="dialog" aria-modal="true" aria-hidden={!offen}>
-        <button className="v2-menu-close" aria-label="Menü schließen" onClick={() => setOffen(false)}>
-          ×
-        </button>
-        <p className="v2-menu-hallo">Hallo, schön, dass Sie hier sind.</p>
-        <nav className="v2-menu-links">
-          {LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setOffen(false)}>
-              {link.label}
+      <div
+        className={`v2-menu${offen ? ' offen' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!offen}
+      >
+        <div className="v2-menu-top">
+          <span className="v2-menu-logo">
+            Weinmacher <span>Mühltal</span>
+          </span>
+          <button className="v2-menu-close" aria-label="Menü schließen" onClick={() => setOffen(false)}>
+            ×
+          </button>
+        </div>
+        <div className="v2-menu-body">
+          <p className="v2-menu-hallo">Schön, dass Sie da sind</p>
+          <nav className="v2-menu-links">
+            {LINKS.map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setOffen(false)}>
+                {link.label}
+              </a>
+            ))}
+            <a href="#kontakt" className="ist-kontakt" onClick={() => setOffen(false)}>
+              Kontakt
             </a>
-          ))}
-          <a href="#kontakt" className="ist-kontakt" onClick={() => setOffen(false)}>
-            Kontakt
+          </nav>
+          <a href="#kontakt" className="v2-menu-cta" onClick={() => setOffen(false)}>
+            Kontakt aufnehmen <span>↗</span>
           </a>
-        </nav>
+        </div>
       </div>
     </>
   )

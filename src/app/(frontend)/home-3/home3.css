@@ -1075,3 +1075,57 @@
   flex-direction: column;
   gap: clamp(16px, 2vw, 22px);
 }
+
+/* ---------- Micro-Interactions (Awwwards-Touch) ---------- */
+.v3-wein-bild img,
+.v3-wein-bild .ph {
+  transition: transform 0.6s var(--ease);
+}
+.v3-wein:hover .v3-wein-bild {
+  transform: none;
+}
+.v3-wein:hover .v3-wein-bild img,
+.v3-wein:hover .v3-wein-bild .ph {
+  transform: scale(1.06);
+}
+.v3-verleih-bild img {
+  transition: transform 0.6s var(--ease);
+}
+.v3-verleih-karte:hover .v3-verleih-bild img {
+  transform: scale(1.07);
+}
+.v3-ueber-bild img {
+  transition: transform 0.7s var(--ease);
+}
+.v3-ueber-media:hover .v3-ueber-bild img {
+  transform: scale(1.04);
+}
+.v3-btn-anmelden span,
+.v3-hero-cta span {
+  display: inline-block;
+  transition: transform 0.25s var(--ease);
+}
+.v3-btn-anmelden:hover span,
+.v3-hero-cta:hover span {
+  transform: translateX(4px);
+}
+.v3-marquee:hover .v3-marquee-track {
+  animation-play-state: paused;
+}
+.evt2-card:hover .evt2-titel {
+  color: var(--lila);
+}
+.evt2-titel {
+  transition: color 0.25s var(--ease);
+}
+
+/* ---------- Marquee auf Mobil kompakter ---------- */
+@media (max-width: 640px) {
+  .v3-marquee {
+    margin-top: clamp(36px, 9vw, 64px);
+    padding: 15px 0;
+  }
+  .v3-marquee-track span {
+    font-size: 16px;
+  }
+}

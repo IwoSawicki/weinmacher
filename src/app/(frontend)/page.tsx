@@ -15,7 +15,9 @@ import {
   weinartIstBronze,
 } from '@/lib/format'
 
+import { CountUp } from './CountUp'
 import { EventsCountdown } from './EventsCountdown'
+import { Interactions } from './Interactions'
 import { Nav2 } from './home-2/Nav2'
 import './home-2/home2.css'
 import './home-3/home3.css'
@@ -79,6 +81,9 @@ export default async function HomePage() {
                 Unsere Weine entdecken <span style={{ fontSize: 17, lineHeight: 1 }}>↓</span>
               </a>
             </div>
+            <div className="v2-hero-scroll" aria-hidden="true">
+              <span />
+            </div>
           </div>
         </header>
       </div>
@@ -117,15 +122,21 @@ export default async function HomePage() {
                 </p>
                 <div className="v3-stats">
                   <div>
-                    <p className="v3-stat-zahl">1962</p>
+                    <p className="v3-stat-zahl">
+                      <CountUp to={1962} from={1900} />
+                    </p>
                     <p className="v3-stat-label">Gegründet</p>
                   </div>
                   <div>
-                    <p className="v3-stat-zahl">8 ha</p>
+                    <p className="v3-stat-zahl">
+                      <CountUp to={8} suffix=" ha" />
+                    </p>
                     <p className="v3-stat-label">Rebfläche</p>
                   </div>
                   <div>
-                    <p className="v3-stat-zahl">100 %</p>
+                    <p className="v3-stat-zahl">
+                      <CountUp to={100} suffix=" %" />
+                    </p>
                     <p className="v3-stat-label">Handlese</p>
                   </div>
                 </div>
@@ -595,6 +606,7 @@ export default async function HomePage() {
 
         <ScrollReveal distance={32} duration={1} threshold={0.1} />
       </div>
+      <Interactions />
     </>
   )
 }
