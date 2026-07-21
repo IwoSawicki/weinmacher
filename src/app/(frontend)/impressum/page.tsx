@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
-import React from 'react'
 
 import { Footer } from '@/components/sections/Footer'
 import { VorschauNav } from '@/components/VorschauNav'
@@ -18,9 +17,7 @@ export default async function ImpressumPage() {
   const payload = await getPayload({ config: await config })
   const kontakt = await payload.findGlobal({ slug: 'kontakt' })
 
-  const name = kontakt.name || 'Weinmacher Mühltal'
-  const adresse = kontakt.adresse || 'Frank Köth\nMühlweg 12\n64367 Mühltal'
-  const telefon = kontakt.telefon || '06151 / 928 73 40'
+  const telefon = kontakt.telefon || ''
   const email = kontakt.email || 'hallo@weinmacher-muehltal.de'
 
   return (
@@ -34,20 +31,23 @@ export default async function ImpressumPage() {
 
         <h2>Angaben gemäß § 5 DDG</h2>
         <address>
-          {name}
+          Weinbau Köth &amp; Raffold KG
           <br />
-          {adresse.split('\n').map((z, i) => (
-            <React.Fragment key={i}>
-              {z}
-              <br />
-            </React.Fragment>
-          ))}
+          Nieder-Ramstädter Weinmacher
+          <br />
+          Griesbachweg 16
+          <br />
+          64367 Mühltal
         </address>
 
         <h2>Kontakt</h2>
         <p>
-          Telefon: <a href={`tel:${telefon.replace(/[^\d+]/g, '')}`}>{telefon}</a>
-          <br />
+          {telefon && (
+            <>
+              Telefon: <a href={`tel:${telefon.replace(/[^\d+]/g, '')}`}>{telefon}</a>
+              <br />
+            </>
+          )}
           E-Mail: <a href={`mailto:${email}`}>{email}</a>
         </p>
 
@@ -99,6 +99,15 @@ export default async function ImpressumPage() {
         <p>
           Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
           dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet.
+        </p>
+
+        <h2>Webdesign &amp; Umsetzung</h2>
+        <p>
+          Konzept, Gestaltung und technische Umsetzung dieser Website:{' '}
+          <a href="https://stolz-marketing.de" target="_blank" rel="noopener noreferrer">
+            Stolz Marketing
+          </a>
+          .
         </p>
 
         <p style={{ marginTop: 40, fontSize: 14 }}>

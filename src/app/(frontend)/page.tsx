@@ -76,7 +76,7 @@ export default async function HomePage() {
   const name = kontakt.name || 'Weinmacher Mühltal'
   const email = kontakt.email || 'hallo@weinmacher-muehltal.de'
   const telefon = kontakt.telefon || '06151 / 928 73 40'
-  const adresse = kontakt.adresse || 'Mühlweg 12\n64367 Mühltal'
+  const adresse = kontakt.adresse || 'Griesbachweg 16\n64367 Mühltal'
   const zeiten = kontakt.oeffnungszeiten
     ? parseOeffnungszeiten(kontakt.oeffnungszeiten)
     : OEFFNUNGSZEITEN_FALLBACK
@@ -498,6 +498,12 @@ export default async function HomePage() {
                 <a href="/datenschutz">Datenschutz</a>
               </div>
             </div>
+            <p className="v3-footer-credit">
+              Mit <span aria-hidden="true">❤️</span> erstellt von{' '}
+              <a href="https://stolz-marketing.de" target="_blank" rel="noopener noreferrer">
+                Stolz Marketing
+              </a>
+            </p>
           </div>
         </footer>
 

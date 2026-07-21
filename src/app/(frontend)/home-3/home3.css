@@ -1159,3 +1159,19 @@
     font-size: 13.5px;
   }
 }
+
+/* ---------- Footer-Credit (Agentur) ---------- */
+.v3-footer-credit {
+  margin: 0;
+  padding: 0 0 26px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+.v3-footer-credit a {
+  color: var(--lila);
+  transition: color 0.2s;
+}
+.v3-footer-credit a:hover {
+  color: var(--bronze);
+}

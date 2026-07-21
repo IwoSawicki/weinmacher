@@ -19,7 +19,7 @@ export default async function DatenschutzPage() {
   const kontakt = await payload.findGlobal({ slug: 'kontakt' })
 
   const name = kontakt.name || 'Weinmacher Mühltal'
-  const adresse = kontakt.adresse || 'Frank Köth\nMühlweg 12\n64367 Mühltal'
+  const adresse = kontakt.adresse || 'Weinbau Köth & Raffold KG\nGriesbachweg 16\n64367 Mühltal'
   const email = kontakt.email || 'hallo@weinmacher-muehltal.de'
 
   return (

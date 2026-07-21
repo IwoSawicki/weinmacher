@@ -100,6 +100,9 @@ export function Footer({ kontakt }: { kontakt: Kontakt }) {
           <div className="footer-rechtliches">
             <a href="/impressum">Impressum</a>
             <a href="/datenschutz">Datenschutz</a>
+            <a href="https://stolz-marketing.de" target="_blank" rel="noopener noreferrer">
+              Mit ❤️ von Stolz Marketing
+            </a>
           </div>
         </div>
       </div>

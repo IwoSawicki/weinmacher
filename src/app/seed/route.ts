@@ -38,13 +38,20 @@ function inTagen(tage: number, stunde = 19): string {
   return d.toISOString()
 }
 
-// Einmaliges Befüllen der Datenbank mit Platzhalter-Inhalten.
-// Aufruf: /seed?secret=<PAYLOAD_SECRET>  (idempotent – füllt nur leere Bereiche)
+// Befüllen der Datenbank.
+// Aufruf: /seed?secret=<PAYLOAD_SECRET>              (idempotent – nur leere Bereiche)
+//         /seed?secret=...&reset=events              (Events loeschen + echte Termine laden)
+//         /seed?secret=...&reset=kontakt             (Adresse aktualisieren)
+//         /seed?secret=...&reset=all                 (beides)
 export async function GET(req: NextRequest) {
   const secret = req.nextUrl.searchParams.get('secret')
   if (!secret || secret !== process.env.PAYLOAD_SECRET) {
     return NextResponse.json({ error: 'Nicht autorisiert' }, { status: 401 })
   }
+
+  const reset = (req.nextUrl.searchParams.get('reset') || '').toLowerCase()
+  const resetEvents = reset === 'events' || reset === 'all'
+  const resetKontakt = reset === 'kontakt' || reset === 'all'
 
   const payload = await getPayload({ config: await config })
   const ergebnis: Record<string, string> = {}
@@ -117,49 +124,34 @@ export async function GET(req: NextRequest) {
     ergebnis.weine = `übersprungen (${weineCount.totalDocs} vorhanden)`
   }
 
-  // --- EVENTS ---
+  // --- EVENTS (echte WeinZeit-Ausschanktermine im Weinberg) ---
   const eventsCount = await payload.count({ collection: 'events' })
-  if (eventsCount.totalDocs === 0) {
+  if (resetEvents && eventsCount.totalDocs > 0) {
+    await payload.delete({ collection: 'events', where: { id: { exists: true } } })
+  }
+  if (resetEvents || eventsCount.totalDocs === 0) {
+    const beschr = lexical(
+      'WeinZeit – offener Ausschank im Weinberg auf der Schmallert in Nieder-Ramstadt. Samstag ab 17 Uhr, Sonntag ab 14 Uhr. Kommen Sie vorbei – wir freuen uns auf Sie.',
+    )
     const events = [
-      {
-        titel: 'Weinprobe im Gewölbekeller',
-        datum: inTagen(21, 19),
-        ort: 'Gewölbekeller, Mühlweg 12',
-        beschreibung: lexical(
-          'Sechs Weine des Jahrgangs, begleitet von regionaler Brotzeit. Frank Köth führt persönlich durch den Abend.',
-        ),
-        preis: '39 € pro Person',
-        anmeldeLink: 'events@weinmacher-muehltal.de',
-        ausgebucht: false,
-      },
-      {
-        titel: 'Sommerfest zwischen den Reben',
-        datum: inTagen(45, 15),
-        ort: 'Weinberg „Am Steinbruch“',
-        beschreibung: lexical(
-          'Offene Weinstände, Flammkuchen aus dem Holzofen und Livemusik bis in die Nacht – mitten im Weinberg.',
-        ),
-        preis: 'Eintritt 8 €, Kinder frei',
-        ausgebucht: true,
-      },
-      {
-        titel: 'Federweißer & Zwiebelkuchen',
-        datum: inTagen(80, 12),
-        ort: 'Hof & Vinothek',
-        beschreibung: lexical(
-          'Frisch gepresster Federweißer, warmer Zwiebelkuchen und Kellerführungen zur vollen Stunde.',
-        ),
-        preis: 'Eintritt frei',
-        anmeldeLink: 'events@weinmacher-muehltal.de',
-        ausgebucht: false,
-      },
-    ]
+      { datum: '2026-07-25T17:00:00+02:00' },
+      { datum: '2026-08-29T17:00:00+02:00' },
+      { datum: '2026-09-26T17:00:00+02:00' },
+      { datum: '2026-10-24T17:00:00+02:00' },
+    ].map((e) => ({
+      titel: 'WeinZeit – Ausschank im Weinberg',
+      datum: e.datum,
+      ort: 'Weinberg auf der Schmallert, Nieder-Ramstadt',
+      beschreibung: beschr,
+      preis: 'Eintritt frei',
+      ausgebucht: false,
+    }))
     for (const e of events) {
       await payload.create({ collection: 'events', data: e as never })
     }
-    ergebnis.events = `${events.length} angelegt`
+    ergebnis.events = resetEvents ? `${events.length} neu geladen (Reset)` : `${events.length} angelegt`
   } else {
-    ergebnis.events = `übersprungen (${eventsCount.totalDocs} vorhanden)`
+    ergebnis.events = `übersprungen (${eventsCount.totalDocs} vorhanden) – echte Termine per ?reset=events`
   }
 
   // --- VERLEIH ---
@@ -209,21 +201,25 @@ export async function GET(req: NextRequest) {
 
   // --- KONTAKT (Global) ---
   const kontakt = await payload.findGlobal({ slug: 'kontakt' })
+  const ADRESSE = 'Griesbachweg 16\n64367 Mühltal'
   if (!kontakt.name && !kontakt.adresse) {
     await payload.updateGlobal({
       slug: 'kontakt',
       data: {
         name: 'Weinmacher Mühltal',
-        adresse: 'Frank Köth\nMühlweg 12\n64367 Mühltal',
-        telefon: '06151 / 928 73 40',
+        adresse: ADRESSE,
         email: 'hallo@weinmacher-muehltal.de',
         oeffnungszeiten:
           'Mi – Fr | 15 – 19 Uhr\nSamstag | 10 – 18 Uhr\nSonntag | 11 – 17 Uhr\nMo & Di | geschlossen',
       } as never,
     })
     ergebnis.kontakt = 'befüllt'
+  } else if (resetKontakt) {
+    // Nur die Adresse aktualisieren, restliche gepflegte Felder unangetastet lassen
+    await payload.updateGlobal({ slug: 'kontakt', data: { adresse: ADRESSE } as never })
+    ergebnis.kontakt = 'Adresse aktualisiert (Reset)'
   } else {
-    ergebnis.kontakt = 'übersprungen (bereits gepflegt)'
+    ergebnis.kontakt = 'übersprungen (bereits gepflegt) – Adresse per ?reset=kontakt'
   }
 
   return NextResponse.json({ ok: true, ergebnis })

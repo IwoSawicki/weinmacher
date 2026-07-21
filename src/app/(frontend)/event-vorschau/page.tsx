@@ -25,12 +25,12 @@ export const metadata: Metadata = {
 
 // Demo-Event, falls im CMS noch keins gepflegt ist.
 const DEMO_EVENT = {
-  titel: 'Weinprobe im Gewölbekeller',
-  datum: '2026-09-11T19:00:00+02:00',
-  ort: 'Gewölbekeller, Mühlweg 12, 64367 Mühltal',
+  titel: 'WeinZeit – Ausschank im Weinberg',
+  datum: '2026-07-25T17:00:00+02:00',
+  ort: 'Weinberg auf der Schmallert, Nieder-Ramstadt',
   beschreibungText:
-    'Sechs Weine des Jahrgangs, begleitet von regionaler Brotzeit. Jakob Stolz führt persönlich durch den Abend und erzählt, wie aus Handlese und Geduld die Weine des Mühltals entstehen.',
-  preis: '39 € pro Person',
+    'WeinZeit – offener Ausschank im Weinberg auf der Schmallert in Nieder-Ramstadt. Samstag ab 17 Uhr, Sonntag ab 14 Uhr. Kommen Sie vorbei – wir freuen uns auf Sie.',
+  preis: 'Eintritt frei',
   ausgebucht: false,
 }
 
