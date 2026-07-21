@@ -174,11 +174,18 @@
 }
 .v2-hero-frame {
   position: relative;
-  min-height: clamp(480px, 78vh, 800px);
+  min-height: calc(100vh - 24px);
   display: flex;
   align-items: flex-end;
   border-radius: 32px;
   overflow: hidden;
+}
+/* Auf Mobil niedriger (nicht die volle Höhe) */
+@media (max-width: 768px) {
+  .v2-hero-frame {
+    min-height: 80vh;
+    min-height: 80dvh;
+  }
 }
 .v2-hero-img {
   position: absolute;

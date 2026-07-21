@@ -26,8 +26,41 @@ import './home-3/home3.css'
 // sofort live sind (und der Docker-Build keine Datenbank braucht)
 export const dynamic = 'force-dynamic'
 
-const MARQUEE =
-  'Riesling  ✳  Spätburgunder  ✳  Grauburgunder  ✳  Portugieser  ✳  Handlese  ✳  Gewölbekeller  ✳  Steillage  ✳  Seit 1962  ✳  '
+const MARQUEE_WORDS = [
+  'Riesling',
+  'Spätburgunder',
+  'Grauburgunder',
+  'Portugieser',
+  'Handlese',
+  'Gewölbekeller',
+  'Steillage',
+  'Seit 1962',
+]
+
+// Stern-Trenner als SVG (statt Emoji – rendert auf allen Geräten gleich)
+function MarqueeStar() {
+  return (
+    <svg className="v3-marquee-star" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+      <path
+        d="M12 0c0 6.6-5.4 12-12 12 6.6 0 12 5.4 12 12 0-6.6 5.4-12 12-12-6.6 0-12-5.4-12-12Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+function MarqueeSequence() {
+  return (
+    <span className="v3-marquee-seq" aria-hidden="true">
+      {MARQUEE_WORDS.map((wort) => (
+        <React.Fragment key={wort}>
+          <span className="v3-marquee-wort">{wort}</span>
+          <MarqueeStar />
+        </React.Fragment>
+      ))}
+    </span>
+  )
+}
 
 // Passendes Platzhalter-SVG je Verleih-Kategorie (solange kein echtes Foto da ist)
 function verleihPlatzhalter(kategorie?: string | null): string {
@@ -93,8 +126,8 @@ export default async function HomePage() {
         {/* MARQUEE */}
         <div className="v3-marquee">
           <div className="v3-marquee-track">
-            <span>{MARQUEE}</span>
-            <span>{MARQUEE}</span>
+            <MarqueeSequence />
+            <MarqueeSequence />
           </div>
         </div>
 
@@ -236,149 +269,13 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* EVENTS */}
-        <section id="events" className="v3-section kompakt">
-          <div className="v3-inner">
-            <div data-reveal="" className="v3-eyebrow">
-              <span className="v3-eyebrow-num">(03)</span>
-              <span className="v3-eyebrow-label">Events</span>
-            </div>
-            <h2 data-reveal="" className="v3-h2 v3-h2-block" style={{ maxWidth: 760 }}>
-              Kommende <em>Veranstaltungen</em>
-            </h2>
-            {events.length === 0 ? (
-              <p className="v3-fliess">
-                Aktuell sind keine Veranstaltungen geplant – schauen Sie bald wieder vorbei.
-              </p>
-            ) : (
-              <div className="v3-events-liste">
-                {events.map((event) => {
-                  const pdf =
-                    event.pdf && typeof event.pdf === 'object' && event.pdf.url
-                      ? event.pdf.url
-                      : null
-                  return (
-                    <article
-                      key={event.id}
-                      data-reveal=""
-                      className={`v3-event${event.ausgebucht ? ' ist-ausgebucht' : ''}`}
-                    >
-                      <div>
-                        <p className="v3-event-datum">{formatEventDatum(event.datum)}</p>
-                        <h3 className="v3-event-titel">
-                          {event.titel}
-                          {event.ausgebucht && <span className="v3-event-badge">Ausgebucht</span>}
-                        </h3>
-                        {event.ort && <p className="v3-event-ort">{event.ort}</p>}
-                      </div>
-                      <div>
-                        {event.beschreibung && (
-                          <div className="v3-event-besch">
-                            <RichText data={event.beschreibung} />
-                          </div>
-                        )}
-                        {event.preis && <p className="v3-event-preis">{event.preis}</p>}
-                      </div>
-                      <div className="v3-event-btns">
-                        {pdf && (
-                          <a
-                            href={pdf}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="v3-btn-pdf"
-                          >
-                            Details (PDF)
-                          </a>
-                        )}
-                        {!event.ausgebucht && event.anmeldeLink && (
-                          <a href={normalisiereLink(event.anmeldeLink)} className="v3-btn-anmelden">
-                            Anmelden <span style={{ fontSize: 15, lineHeight: 1 }}>→</span>
-                          </a>
-                        )}
-                        {event.ausgebucht && <span className="v3-warteliste">Warteliste</span>}
-                      </div>
-                    </article>
-                  )
-                })}
-                <div className="v3-event-ende" />
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* EVENTS – Variante 2 (prominentere Kacheln) */}
+        {/* EVENTS – Countdown + gestapelte Events */}
         {events.length > 0 && (
-          <section className="v3-section kompakt">
+          <section id="events" className="v3-section kompakt">
             <div className="v3-inner">
               <div data-reveal="" className="v3-eyebrow">
-                <span className="v3-eyebrow-num">(03·b)</span>
-                <span className="v3-eyebrow-label">Events – Variante 2</span>
-              </div>
-              <h2 data-reveal="" className="v3-h2 v3-h2-block" style={{ maxWidth: 760 }}>
-                Kommende <em>Veranstaltungen</em>
-              </h2>
-              <div className="evt2-liste">
-                {events.map((event) => {
-                  const pdf =
-                    event.pdf && typeof event.pdf === 'object' && event.pdf.url
-                      ? event.pdf.url
-                      : null
-                  return (
-                    <article
-                      key={event.id}
-                      data-reveal=""
-                      className={`evt2-card${event.ausgebucht ? ' ist-ausgebucht' : ''}`}
-                    >
-                      <div className="evt2-head">
-                        <p className="evt2-datum">{formatEventDatum(event.datum)}</p>
-                        {event.ausgebucht && <span className="evt2-badge">Ausgebucht</span>}
-                      </div>
-                      <h3 className="evt2-titel">{event.titel}</h3>
-                      {event.ort && <p className="evt2-ort">{event.ort}</p>}
-                      {event.beschreibung && (
-                        <div className="evt2-besch">
-                          <RichText data={event.beschreibung} />
-                        </div>
-                      )}
-                      <div className="evt2-foot">
-                        {event.preis && <p className="evt2-preis">{event.preis}</p>}
-                        <div className="evt2-btns">
-                          {pdf && (
-                            <a
-                              href={pdf}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="v3-btn-pdf"
-                            >
-                              Details (PDF)
-                            </a>
-                          )}
-                          {!event.ausgebucht && event.anmeldeLink && (
-                            <a
-                              href={normalisiereLink(event.anmeldeLink)}
-                              className="v3-btn-anmelden"
-                            >
-                              Anmelden <span style={{ fontSize: 15, lineHeight: 1 }}>→</span>
-                            </a>
-                          )}
-                          {event.ausgebucht && <span className="v3-warteliste">Warteliste</span>}
-                        </div>
-                      </div>
-                    </article>
-                  )
-                })}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* EVENTS – Variante 3 (großer Countdown + gestapelte Events) */}
-        {events.length > 0 && (
-          <section className="v3-section kompakt">
-            <div className="v3-inner">
-              <div data-reveal="" className="v3-eyebrow">
-                <span className="v3-eyebrow-num">(03·c)</span>
-                <span className="v3-eyebrow-label">Events – Variante 3</span>
+                <span className="v3-eyebrow-num">(03)</span>
+                <span className="v3-eyebrow-label">Events</span>
               </div>
               <h2 data-reveal="" className="v3-h2 v3-h2-block" style={{ maxWidth: 760 }}>
                 Kommende <em>Veranstaltungen</em>

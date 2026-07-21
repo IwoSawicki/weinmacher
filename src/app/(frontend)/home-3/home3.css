@@ -280,11 +280,21 @@
   width: max-content;
   animation: v3Marquee 36s linear infinite;
 }
-.v3-marquee-track span {
+.v3-marquee-seq {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+  padding-right: clamp(20px, 3vw, 36px);
+}
+.v3-marquee-wort {
   font-family: var(--serif);
   font-size: clamp(20px, 2.2vw, 28px);
   font-weight: 500;
   letter-spacing: 0.02em;
+}
+.v3-marquee-star {
+  color: var(--bronze);
+  flex-shrink: 0;
 }
 
 /* ---------- Section-Kopf (nummeriert) ---------- */
@@ -1125,7 +1135,27 @@
     margin-top: clamp(36px, 9vw, 64px);
     padding: 15px 0;
   }
-  .v3-marquee-track span {
-    font-size: 16px;
+  .v3-marquee-wort {
+    font-size: 17px;
+  }
+  .v3-marquee-seq {
+    gap: 18px;
+    padding-right: 18px;
+  }
+}
+/* ---------- Weine auf Mobil als 2er-Grid ---------- */
+@media (max-width: 640px) {
+  .v3-grid-weine {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .v3-wein-bild {
+    height: 200px;
+  }
+  .v3-wein-name {
+    font-size: 21px;
+  }
+  .v3-wein-besch {
+    font-size: 13.5px;
   }
 }
