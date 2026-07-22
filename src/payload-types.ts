@@ -191,6 +191,14 @@ export interface Media {
   focalX?: number | null;
   focalY?: number | null;
   sizes?: {
+    favicon?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     thumbnail?: {
       url?: string | null;
       width?: number | null;
@@ -520,6 +528,16 @@ export interface MediaSelect<T extends boolean = true> {
   sizes?:
     | T
     | {
+        favicon?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
         thumbnail?:
           | T
           | {
@@ -642,6 +660,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Website {
   id: number;
   /**
+   * Wird als kleines Symbol im Browser-Tab (Favicon) angezeigt. Am besten quadratisch bzw. mit dem Wappen mittig. Tipp: Über den Fokuspunkt im Bild kann festgelegt werden, welcher Ausschnitt beim quadratischen Zuschnitt sichtbar bleibt.
+   */
+  logo?: (number | null) | Media;
+  /**
    * Großes Titelbild ganz oben auf der Startseite, z. B. Weinberg im Abendlicht. Querformat, möglichst hochauflösend (mind. 1920 px breit).
    */
   heroBild?: (number | null) | Media;
@@ -681,6 +703,7 @@ export interface Kontakt {
  * via the `definition` "website_select".
  */
 export interface WebsiteSelect<T extends boolean = true> {
+  logo?: T;
   heroBild?: T;
   ueberBild?: T;
   updatedAt?: T;

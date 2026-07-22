@@ -12,6 +12,16 @@ export const Website: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      label: 'Logo (Favicon / Browser-Tab)',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Wird als kleines Symbol im Browser-Tab (Favicon) angezeigt. Am besten quadratisch bzw. mit dem Wappen mittig. Tipp: Über den Fokuspunkt im Bild kann festgelegt werden, welcher Ausschnitt beim quadratischen Zuschnitt sichtbar bleibt.',
+      },
+    },
+    {
       name: 'heroBild',
       label: 'Hero-Bild (Startseite, ganz oben)',
       type: 'upload',

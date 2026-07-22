@@ -37,6 +37,14 @@ export const Media: CollectionConfig = {
     },
     imageSizes: [
       {
+        // Quadratischer Zuschnitt für Favicon / Logo (PNG, damit in allen Browsern nutzbar).
+        name: 'favicon',
+        width: 256,
+        height: 256,
+        position: 'centre',
+        formatOptions: { format: 'png' },
+      },
+      {
         name: 'thumbnail',
         width: 400,
         height: 300,
