@@ -831,36 +831,34 @@
 .v2 a.v2-btn-pdf:hover { color: #fff; }
 
 /* ---------- Mobiles Menü: schmale Pille wächst breiter, Menü klappt raus ---------- */
+/* Menü als vollflächiges Overlay, das sanft rein-fadet und leicht von oben
+   herein-slidet (kein Aufblähen der Pille mehr). */
 .v2-menu {
   position: fixed;
-  top: 16px;
+  top: 12px;
   left: 50%;
-  transform: translateX(-50%);
   z-index: 60;
-  width: min(240px, calc(100vw - 32px));
-  height: 52px;
-  background: rgba(250, 248, 245, 0.9);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(36, 29, 34, 0.08);
-  border-radius: 999px;
-  box-shadow: 0 30px 80px rgba(36, 29, 34, 0.18);
-  display: flex;
-  flex-direction: column;
-  padding: 20px 20px 26px;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: width 0.55s var(--ease), height 0.55s var(--ease), border-radius 0.55s var(--ease),
-    top 0.55s var(--ease), opacity 0.3s ease;
-}
-.v2-menu.offen {
   width: calc(100vw - 24px);
   height: calc(100vh - 24px);
   height: calc(100dvh - 24px);
-  top: 12px;
+  background: rgba(250, 248, 245, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(36, 29, 34, 0.08);
   border-radius: 30px;
+  box-shadow: 0 30px 80px rgba(36, 29, 34, 0.18);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 30px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -16px);
+  pointer-events: none;
+  transition: opacity 0.36s ease, transform 0.5s var(--ease);
+}
+.v2-menu.offen {
   opacity: 1;
+  transform: translate(-50%, 0);
   pointer-events: auto;
 }
 /* Pille (Nav) beim Öffnen ausblenden – das Menü übernimmt visuell */
@@ -924,8 +922,8 @@
   letter-spacing: 0.04em;
   color: var(--muted);
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  transform: translateY(8px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
 }
 .v2-menu-hallo::before {
   content: '';
@@ -938,7 +936,7 @@
 .v2-menu.offen .v2-menu-hallo {
   opacity: 1;
   transform: none;
-  transition-delay: 0.18s;
+  transition-delay: 0.08s;
 }
 .v2-menu-links {
   display: flex;
@@ -955,8 +953,8 @@
   width: max-content;
   max-width: 100%;
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease), color 0.2s;
+  transform: translateY(14px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), color 0.2s;
 }
 .v2-menu-links a.ist-kontakt {
   color: var(--lila);
@@ -965,11 +963,11 @@
   opacity: 1;
   transform: none;
 }
-.v2-menu.offen .v2-menu-links a:nth-child(1) { transition-delay: 0.24s; }
-.v2-menu.offen .v2-menu-links a:nth-child(2) { transition-delay: 0.31s; }
-.v2-menu.offen .v2-menu-links a:nth-child(3) { transition-delay: 0.38s; }
-.v2-menu.offen .v2-menu-links a:nth-child(4) { transition-delay: 0.45s; }
-.v2-menu.offen .v2-menu-links a:nth-child(5) { transition-delay: 0.52s; }
+.v2-menu.offen .v2-menu-links a:nth-child(1) { transition-delay: 0.12s; }
+.v2-menu.offen .v2-menu-links a:nth-child(2) { transition-delay: 0.18s; }
+.v2-menu.offen .v2-menu-links a:nth-child(3) { transition-delay: 0.24s; }
+.v2-menu.offen .v2-menu-links a:nth-child(4) { transition-delay: 0.30s; }
+.v2-menu.offen .v2-menu-links a:nth-child(5) { transition-delay: 0.36s; }
 .v2-menu-cta {
   margin: clamp(26px, 5vh, 44px) 6px 0;
   display: inline-flex;
@@ -985,8 +983,8 @@
   width: max-content;
   max-width: calc(100% - 12px);
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease), background 0.25s;
+  transform: translateY(14px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), background 0.25s;
 }
 .v2 a.v2-menu-cta {
   color: #fff;
@@ -994,7 +992,7 @@
 .v2-menu.offen .v2-menu-cta {
   opacity: 1;
   transform: none;
-  transition-delay: 0.58s;
+  transition-delay: 0.44s;
 }
 .v2-menu-cta:hover {
   background: var(--bronze);
