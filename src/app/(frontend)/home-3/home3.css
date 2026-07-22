@@ -1209,6 +1209,10 @@
 }
 .v3-footer-credit a {
   color: var(--lila);
+  /* Nicht nur über Farbe erkennbar (Barrierefreiheit): dezente Unterstreichung */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
   transition: color 0.2s;
 }
 .v3-footer-credit a:hover {

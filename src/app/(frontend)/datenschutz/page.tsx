@@ -83,15 +83,21 @@ export default async function DatenschutzPage() {
           1 lit. b DSGVO (Anbahnung/Erfüllung eines Vertrags) bzw. lit. f DSGVO.
         </p>
 
-        <h2>6. Reichweitenmessung (Analytics)</h2>
+        <h2>6. Reichweitenmessung mit Umami (Analytics)</h2>
         <p>
-          Zur Verbesserung unseres Angebots setzen wir eine selbst gehostete, datensparsame
-          Web-Analyse ein. Dabei werden anonymisierte Nutzungsdaten ohne Cookies erhoben; eine
-          Identifizierung einzelner Besucher ist nicht möglich. Rechtsgrundlage ist Art. 6 Abs. 1
-          lit. f DSGVO.{' '}
-          <span className="platzhalter">
-            Bitte prüfen, ob das eingesetzte Tool cookielos/anonym arbeitet und ggf. anpassen.
-          </span>
+          Zur statistischen Auswertung der Websitenutzung setzen wir Umami ein – eine selbst
+          gehostete, datenschutzfreundliche Web-Analyse, die auf eigener Infrastruktur betrieben
+          wird. Umami arbeitet vollständig <strong>ohne Cookies</strong> und erfasst ausschließlich
+          anonymisierte Daten, etwa aufgerufene Seiten, die ungefähre Herkunft auf Länderebene sowie
+          den verwendeten Browser- und Gerätetyp. IP-Adressen werden nicht gespeichert; eine
+          Identifizierung einzelner Besucherinnen und Besucher oder eine geräteübergreifende
+          Wiedererkennung ist nicht möglich.
+        </p>
+        <p>
+          Da hierbei keine personenbezogenen Daten verarbeitet und keine Cookies gesetzt werden, ist
+          keine Einwilligung erforderlich. Rechtsgrundlage für die Verarbeitung der anonymen
+          Statistikdaten ist unser berechtigtes Interesse an einer bedarfsgerechten und sicheren
+          Gestaltung unserer Website (Art. 6 Abs. 1 lit. f DSGVO).
         </p>
 
         <h2>7. Ihre Rechte</h2>
