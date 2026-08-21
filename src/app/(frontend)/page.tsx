@@ -441,6 +441,64 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* VERLEIH – Variante 2 (ohne Bilder, als Liste) */}
+        {verleih.length > 0 && (
+          <section className="v3-verleih2">
+            <div className="v3-verleih2-box">
+              <div className="v3-verleih2-inner">
+                <div data-reveal="" className="v3-verleih2-eyebrow">
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 18 }}>
+                    <span className="v3-eyebrow-num">(04)</span>
+                    <span className="v3-eyebrow-label">Verleih</span>
+                  </div>
+                  <span className="v3-eyebrow-label">Ausstattung &amp; Technik</span>
+                </div>
+                <h2 data-reveal="" className="v3-verleih2-h2">
+                  Alles für Ihr <em>Fest</em>.
+                </h2>
+                <ul className="v3-verleih2-liste">
+                  {verleih.map((item, i) => {
+                    const verfuegbar = item.verfuegbar !== false
+                    return (
+                      <li key={item.id} data-reveal="" className="v3-verleih2-zeile">
+                        <span className="v3-verleih2-num">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <div className="v3-verleih2-haupt">
+                          {item.kategorie && (
+                            <span className="v3-verleih2-kat">
+                              {VERLEIH_KATEGORIE_LABELS[item.kategorie] ?? item.kategorie}
+                            </span>
+                          )}
+                          <h3 className="v3-verleih2-name">{item.name}</h3>
+                          {item.beschreibung && (
+                            <p className="v3-verleih2-besch">{item.beschreibung}</p>
+                          )}
+                        </div>
+                        <div className="v3-verleih2-meta">
+                          {item.preisInfo && (
+                            <span className="v3-verleih2-preis">{item.preisInfo}</span>
+                          )}
+                          <span
+                            className={`v3-verleih2-status${verfuegbar ? '' : ' ist-anfrage'}`}
+                          >
+                            <span className="punkt" />
+                            {verfuegbar ? 'Verfügbar' : 'Auf Anfrage'}
+                          </span>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+                <p data-reveal="" className="v3-verleih2-hinweis">
+                  Anfragen mit Wunschtermin an <a href={`mailto:${email}`}>{email}</a> – Abholung in
+                  64367 Mühltal oder Lieferung nach Absprache.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* KONTAKT + FOOTER */}
         <footer id="kontakt" className="v3-footer">
           <div className="v3-footer-inner">
