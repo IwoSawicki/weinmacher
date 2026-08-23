@@ -54,6 +54,15 @@ export const Events: CollectionConfig = {
       ],
     },
     {
+      name: 'kartenLink',
+      label: 'Google-Maps-Link',
+      type: 'text',
+      admin: {
+        description:
+          'Optional: Link zu Google Maps (z. B. der geteilte Standort-Link). Wenn leer, wird automatisch nach dem Ort gesucht.',
+      },
+    },
+    {
       name: 'zeiten',
       label: 'Termin-Zeiten (Aufzählung)',
       type: 'textarea',

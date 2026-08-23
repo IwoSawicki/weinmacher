@@ -144,8 +144,7 @@ export interface Weine {
    * z. B. „Riesling trocken“
    */
   name: string;
-  weinart: 'weisswein' | 'rotwein' | 'rose' | 'sekt' | 'sonstiges';
-  jahrgang?: number | null;
+  weinart: 'weisswein' | 'rotwein' | 'rose' | 'sekt' | 'traubensaft' | 'alkoholfrei' | 'sonstiges';
   rebsorte?: string | null;
   /**
    * Geschmack, Charakter, passende Anlässe – der Text erscheint auf der Website.
@@ -242,6 +241,10 @@ export interface Event {
    * z. B. „Weingut, Hauptstraße 1“
    */
   ort?: string | null;
+  /**
+   * Optional: Link zu Google Maps (z. B. der geteilte Standort-Link). Wenn leer, wird automatisch nach dem Ort gesucht.
+   */
+  kartenLink?: string | null;
   /**
    * Für mehrtägige Events: eine Zeile pro Tag im Format „Tag | Uhrzeit“, z. B. „Samstag | ab 17 Uhr“. Wird als übersichtliche Liste angezeigt.
    */
@@ -465,7 +468,6 @@ export interface WeineSelect<T extends boolean = true> {
   _order?: T;
   name?: T;
   weinart?: T;
-  jahrgang?: T;
   rebsorte?: T;
   beschreibung?: T;
   preis?: T;
@@ -483,6 +485,7 @@ export interface EventsSelect<T extends boolean = true> {
   titel?: T;
   datum?: T;
   ort?: T;
+  kartenLink?: T;
   zeiten?: T;
   beschreibung?: T;
   preis?: T;

@@ -18,9 +18,9 @@ export default async function DatenschutzPage() {
   const payload = await getPayload({ config: await config })
   const kontakt = await payload.findGlobal({ slug: 'kontakt' })
 
-  const name = kontakt.name || 'Weinmacher Mühltal'
+  const name = kontakt.name || 'Nieder-Ramstädter Weinmacher'
   const adresse = kontakt.adresse || 'Weinbau Köth & Raffold KG\nGriesbachweg 16\n64367 Mühltal'
-  const email = kontakt.email || 'hallo@weinmacher-muehltal.de'
+  const email = kontakt.email || 'koeth.weinbau@gmx.de'
 
   return (
     <div className="det">

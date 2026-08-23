@@ -43,12 +43,20 @@ export const WEINART_LABELS: Record<string, string> = {
   rotwein: 'Rotwein',
   rose: 'Rosé',
   sekt: 'Sekt',
+  traubensaft: 'Traubensaft',
+  alkoholfrei: 'Alkoholfrei',
   sonstiges: '',
 }
 
-// Akzentfarbe der Art-Zeile wie im Design: Rosé/Sekt bronze, sonst lila
+// Akzentfarbe der Art-Zeile wie im Design: Rosé/Sekt/Saft/alkoholfrei bronze, sonst lila
 export function weinartIstBronze(weinart: string): boolean {
-  return weinart === 'rose' || weinart === 'sekt' || weinart === 'sonstiges'
+  return (
+    weinart === 'rose' ||
+    weinart === 'sekt' ||
+    weinart === 'traubensaft' ||
+    weinart === 'alkoholfrei' ||
+    weinart === 'sonstiges'
+  )
 }
 
 export const VERLEIH_KATEGORIE_LABELS: Record<string, string> = {
@@ -64,6 +72,22 @@ export function normalisiereLink(link: string): string {
     return `mailto:${link}`
   }
   return link
+}
+
+// Google-Maps-Link für ein Event: entweder der gepflegte Karten-Link,
+// sonst eine Kartensuche nach dem Ort. Gibt null zurück, wenn beides fehlt.
+export function mapsHref(
+  kartenLink: string | null | undefined,
+  ort: string | null | undefined,
+): string | null {
+  if (kartenLink && kartenLink.trim()) {
+    const l = kartenLink.trim()
+    return l.startsWith('http') ? l : `https://${l}`
+  }
+  if (ort && ort.trim()) {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ort.trim())}`
+  }
+  return null
 }
 
 export const OEFFNUNGSZEITEN_FALLBACK: Array<[string, string]> = [

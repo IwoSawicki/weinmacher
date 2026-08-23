@@ -2,18 +2,12 @@ import React from 'react'
 
 import type { Kontakt } from '@/payload-types'
 
-// Fallback-Inhalte aus der Designvorlage, bis das Kontakt-Global gepflegt ist
+// Fallback-Inhalte, bis das Kontakt-Global gepflegt ist
 const FALLBACK = {
-  name: 'Weinmacher Mühltal',
-  adresse: 'Mühltal',
-  telefon: '',
-  email: 'hallo@weinmacher-muehltal.de',
-  zeiten: [
-    ['Mi – Fr', '15 – 19 Uhr'],
-    ['Samstag', '10 – 18 Uhr'],
-    ['Sonntag', '11 – 17 Uhr'],
-    ['Mo & Di', 'geschlossen'],
-  ] as Array<[string, string]>,
+  name: 'Nieder-Ramstädter Weinmacher',
+  adresse: 'Griesbachweg 16\n64367 Mühltal',
+  telefon: '06151 6795 768',
+  email: 'koeth.weinbau@gmx.de',
 }
 
 export function Footer({ kontakt }: { kontakt: Kontakt }) {
@@ -22,25 +16,13 @@ export function Footer({ kontakt }: { kontakt: Kontakt }) {
   const telefon = kontakt.telefon || FALLBACK.telefon
   const email = kontakt.email || FALLBACK.email
 
-  // Öffnungszeiten: eine Zeile pro Eintrag, optional „links | rechts“
-  const zeiten: Array<[string, string] | [string]> = kontakt.oeffnungszeiten
-    ? kontakt.oeffnungszeiten
-        .split('\n')
-        .map((zeile) => zeile.trim())
-        .filter(Boolean)
-        .map((zeile) => {
-          const teile = zeile.split('|').map((t) => t.trim())
-          return teile.length >= 2 ? [teile[0], teile.slice(1).join(' ')] : [zeile]
-        })
-    : FALLBACK.zeiten
-
   return (
     <footer id="kontakt" className="footer">
       <div className="footer-inner">
         <div className="footer-grid">
           <div data-reveal="">
             <p className="kicker">Kontakt</p>
-            <h2 className="footer-titel">Besuchen Sie uns im Mühltal.</h2>
+            <h2 className="footer-titel">Besuch uns im Mühltal.</h2>
             <p className="footer-adresse">{adresse}</p>
           </div>
           <div data-reveal="">
@@ -68,29 +50,6 @@ export function Footer({ kontakt }: { kontakt: Kontakt }) {
                 )}
               </div>
             )}
-          </div>
-          <div data-reveal="">
-            <p className="footer-label">Hofverkauf &amp; Vinothek</p>
-            <div className="footer-zeiten">
-              {zeiten.map((eintrag, i) =>
-                eintrag.length === 2 ? (
-                  <p
-                    key={i}
-                    className="zeile"
-                    style={
-                      eintrag[1].toLowerCase().includes('geschlossen')
-                        ? { color: 'rgba(250, 248, 245, 0.45)' }
-                        : undefined
-                    }
-                  >
-                    <span>{eintrag[0]}</span>
-                    <span>{eintrag[1]}</span>
-                  </p>
-                ) : (
-                  <p key={i}>{eintrag[0]}</p>
-                ),
-              )}
-            </div>
           </div>
         </div>
         <div className="footer-bottom">

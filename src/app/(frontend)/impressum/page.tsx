@@ -17,8 +17,8 @@ export default async function ImpressumPage() {
   const payload = await getPayload({ config: await config })
   const kontakt = await payload.findGlobal({ slug: 'kontakt' })
 
-  const telefon = kontakt.telefon || ''
-  const email = kontakt.email || 'hallo@weinmacher-muehltal.de'
+  const telefon = kontakt.telefon || '06151 6795 768'
+  const email = kontakt.email || 'koeth.weinbau@gmx.de'
 
   return (
     <div className="det">
@@ -51,10 +51,20 @@ export default async function ImpressumPage() {
           E-Mail: <a href={`mailto:${email}`}>{email}</a>
         </p>
 
+        <h2>Registereintrag</h2>
+        <p>
+          Eintragung im Handelsregister
+          <br />
+          Registergericht: Amtsgericht Darmstadt
+          <br />
+          Registernummer: HRA 86678
+        </p>
+
         <h2>Umsatzsteuer-ID</h2>
         <p>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:{' '}
-          <span className="platzhalter">[bitte ergänzen]</span>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
+          <br />
+          DE336356081
         </p>
 
         <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
@@ -110,10 +120,6 @@ export default async function ImpressumPage() {
           .
         </p>
 
-        <p style={{ marginTop: 40, fontSize: 14 }}>
-          <span className="platzhalter">Hinweis</span> Diese Angaben sind eine Vorlage. Bitte prüfen
-          Sie sie vor dem Livegang rechtlich und ergänzen Sie die markierten Platzhalter.
-        </p>
       </div>
       <Footer kontakt={kontakt} />
     </div>

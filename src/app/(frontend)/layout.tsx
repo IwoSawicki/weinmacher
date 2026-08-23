@@ -8,9 +8,9 @@ import config from '@/payload.config'
 import './styles.css'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://weinmacher-muehltal.de'
-const TITEL = 'Weinmacher Mühltal – Weingut, Events & Verleih'
+const TITEL = 'Nieder-Ramstädter Weinmacher – Wein aus dem Frankensteiner Land'
 const BESCHREIBUNG =
-  'Familienweingut im Mühltal: biologisch angebaute, handgelesene Weine, Events im Weinberg sowie Verleih von Ausschankwagen und Veranstaltungstechnik.'
+  'Junges Familienweingut im Mühltal: naturbelassen ausgebaute, handgelesene Weine, Events im Weinberg und Verleih rund ums Feiern – aus dem Frankensteiner Land.'
 
 // URL einer bestimmten Bildgröße aus einem Payload-Upload-Feld ziehen (null-sicher).
 function bildUrl(feld: unknown, groesse: 'hero' | 'favicon'): string | undefined {
@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const ogBilder = heroUrl
-    ? [{ url: heroUrl, width: 1200, height: 630, alt: 'Weinmacher Mühltal' }]
+    ? [{ url: heroUrl, width: 1200, height: 630, alt: 'Nieder-Ramstädter Weinmacher' }]
     : undefined
 
   return {
@@ -60,7 +60,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: 'de_DE',
-      siteName: 'Weinmacher Mühltal',
+      siteName: 'Nieder-Ramstädter Weinmacher',
       title: TITEL,
       description: BESCHREIBUNG,
       url: SITE_URL,

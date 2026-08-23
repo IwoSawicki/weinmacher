@@ -75,14 +75,28 @@
 }
 .v2-nav-logo {
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: clamp(15px, 4vw, 20px);
   letter-spacing: 0.02em;
   color: var(--ink);
   font-weight: 600;
   white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-flex;
+  align-items: center;
 }
 .v2-nav-logo span {
   color: var(--bronze);
+}
+/* Logo als Bild (falls im CMS hochgeladen) */
+.v2-logo-img {
+  display: block;
+  height: 34px;
+  width: auto;
+}
+.v2-menu-logo .v2-logo-img {
+  height: 38px;
 }
 .v2-nav-links {
   display: flex;

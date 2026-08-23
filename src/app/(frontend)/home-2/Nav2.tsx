@@ -9,7 +9,7 @@ const LINKS = [
   { href: '#verleih', label: 'Verleih' },
 ]
 
-export function Nav2() {
+export function Nav2({ logoUrl, logoAlt }: { logoUrl?: string; logoAlt?: string }) {
   const [offen, setOffen] = useState(false)
 
   useEffect(() => {
@@ -19,11 +19,20 @@ export function Nav2() {
     }
   }, [offen])
 
+  const marke = logoUrl ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={logoUrl} alt={logoAlt || 'Nieder-Ramstädter Weinmacher'} className="v2-logo-img" />
+  ) : (
+    <>
+      Nieder-Ramstädter <span>Weinmacher</span>
+    </>
+  )
+
   return (
     <>
       <nav className={`v2-nav${offen ? ' ist-offen' : ''}`}>
         <a href="#start" className="v2-nav-logo">
-          Weinmacher <span>Mühltal</span>
+          {marke}
         </a>
         <div className="v2-nav-links">
           {LINKS.map((link) => (
@@ -53,15 +62,13 @@ export function Nav2() {
         aria-hidden={!offen}
       >
         <div className="v2-menu-top">
-          <span className="v2-menu-logo">
-            Weinmacher <span>Mühltal</span>
-          </span>
+          <span className="v2-menu-logo">{marke}</span>
           <button className="v2-menu-close" aria-label="Menü schließen" onClick={() => setOffen(false)}>
             ×
           </button>
         </div>
         <div className="v2-menu-body">
-          <p className="v2-menu-hallo">Schön, dass Sie da sind</p>
+          <p className="v2-menu-hallo">Schön, dass du da bist</p>
           <nav className="v2-menu-links">
             {LINKS.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setOffen(false)}>

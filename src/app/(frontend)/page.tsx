@@ -8,10 +8,9 @@ import {
   formatEventDatum,
   formatEventDatumOnly,
   formatPreis,
+  mapsHref,
   normalisiereLink,
-  OEFFNUNGSZEITEN_FALLBACK,
   parseOeffnungszeiten,
-  VERLEIH_KATEGORIE_LABELS,
   WEINART_LABELS,
   weinartIstBronze,
 } from '@/lib/format'
@@ -29,13 +28,13 @@ export const dynamic = 'force-dynamic'
 
 const MARQUEE_WORDS = [
   'Riesling',
-  'Spätburgunder',
-  'Grauburgunder',
-  'Portugieser',
+  'Cabernet Blanc',
+  'Regent',
+  'Cabernet Cortis',
   'Handlese',
-  'Gewölbekeller',
-  'Biologischer Anbau',
-  'Familienweingut',
+  'Frankensteiner Land',
+  'Naturbelassen',
+  'Nieder-Ramstadt',
 ]
 
 // Stern-Trenner als SVG (statt Emoji – rendert auf allen Geräten gleich)
@@ -63,38 +62,36 @@ function MarqueeSequence() {
   )
 }
 
-// Passendes Platzhalter-SVG je Verleih-Kategorie (solange kein echtes Foto da ist)
-function verleihPlatzhalter(kategorie?: string | null): string {
-  if (kategorie === 'ausschank' || kategorie === 'technik' || kategorie === 'mobiliar') {
-    return kategorie
-  }
-  return 'sonstiges'
-}
-
 export default async function HomePage() {
-  const { weine, events, verleih, kontakt, website } = await ladeStartseitenDaten()
+  const { weine, events, kontakt, website } = await ladeStartseitenDaten()
 
-  const name = kontakt.name || 'Weinmacher Mühltal'
-  const email = kontakt.email || 'hallo@weinmacher-muehltal.de'
-  const telefon = kontakt.telefon || '06151 / 928 73 40'
+  const name = kontakt.name || 'Nieder-Ramstädter Weinmacher'
+  const email = kontakt.email || 'koeth.weinbau@gmx.de'
+  const telefon = kontakt.telefon || '06151 6795 768'
   const adresse = kontakt.adresse || 'Griesbachweg 16\n64367 Mühltal'
-  const zeiten = kontakt.oeffnungszeiten
-    ? parseOeffnungszeiten(kontakt.oeffnungszeiten)
-    : OEFFNUNGSZEITEN_FALLBACK
 
   const heroBild = website?.heroBild
   const ueberBild = website?.ueberBild
+  const logo = website?.logo
+  const logoUrl =
+    logo && typeof logo === 'object' ? logo.sizes?.favicon?.url || logo.url || undefined : undefined
 
   return (
     <>
       {/* ===================== HERO (Design Seite 2) ===================== */}
       <div className="v2">
-        <Nav2 />
+        <Nav2 logoUrl={logoUrl} logoAlt={name} />
         <header id="start" className="v2-hero">
           <div className="v2-hero-frame">
             <div className="v2-hero-img">
               {heroBild ? (
-                <Bild media={heroBild} alt="Weinberg im Mühltal" size="hero" sizes="100vw" priority />
+                <Bild
+                  media={heroBild}
+                  alt="Weinberg im Frankensteiner Land"
+                  size="hero"
+                  sizes="100vw"
+                  priority
+                />
               ) : (
                 <div className="ph" aria-hidden="true">
                   Hero: Weinberg im Abendlicht
@@ -103,12 +100,12 @@ export default async function HomePage() {
             </div>
             <div className="v2-hero-verlauf" />
             <div className="v2-hero-inhalt">
-              <div style={{ maxWidth: 760 }}>
-                <p className="v2-hero-kicker">Familienweingut im Mühltal</p>
+              <div style={{ maxWidth: 820 }}>
+                <p className="v2-hero-kicker">Wein aus dem Frankensteiner Land</p>
                 <h1 className="v2-hero-titel">Wein, der nach Zuhause schmeckt.</h1>
                 <p className="v2-hero-text">
-                  Biologisch angebaut, handgelesen und in kleinen Mengen gefüllt – an den Hängen des
-                  Mühltals, unserer Heimat.
+                  Willkommen bei den Nieder-Ramstädter Weinmachern – naturbelassen ausgebaut,
+                  handgelesen und in kleinen Mengen gefüllt.
                 </p>
               </div>
               <a href="#weine" className="v2-hero-cta">
@@ -142,18 +139,18 @@ export default async function HomePage() {
             <div className="v3-ueber-grid">
               <div data-reveal="">
                 <h2 className="v3-h2">
-                  Biologischer Anbau, <em>mitten</em> in der Heimat.
+                  Naturnaher Anbau, <em>mitten</em> in der Heimat.
                 </h2>
                 <p className="v3-fliess">
                   Kein altes Traditionshaus, sondern ein junges Familienweingut: 2010 hat Frank Köth
-                  den Grundstein gelegt, zwei Weinberge im Mühltal gekauft und angefangen, seinen
-                  eigenen Wein zu machen. Bis heute wächst das Weingut mit jedem Jahrgang – Rebe für
-                  Rebe, von Hand.
+                  den Grundstein gelegt, seine Weinberge im Frankensteiner Land bewirtschaftet und
+                  angefangen, seinen eigenen Wein zu machen. Bis heute wächst das Weingut Jahr für
+                  Jahr – Rebe für Rebe, von Hand.
                 </p>
                 <p className="v3-fliess">
-                  Wir setzen auf biologischen, naturnahen Anbau: keine Herbizide, gesunder Boden,
-                  kurze Wege. In einem kleinen, familiären Team kümmern wir uns um jede Traube – für
-                  Wein, der ehrlich gemacht ist und nach Zuhause schmeckt.
+                  Wir setzen auf naturnahen, naturbelassenen Anbau: gesunder Boden, kurze Wege und
+                  viel Handarbeit. In einem kleinen, familiären Team kümmern wir uns um jede Traube –
+                  für Wein, der ehrlich gemacht ist und nach Zuhause schmeckt.
                 </p>
                 <div className="v3-stats">
                   <div>
@@ -164,9 +161,9 @@ export default async function HomePage() {
                   </div>
                   <div>
                     <p className="v3-stat-zahl">
-                      <CountUp to={2} />
+                      <CountUp to={3} suffix=" ha" />
                     </p>
-                    <p className="v3-stat-label">Weinberge</p>
+                    <p className="v3-stat-label">Rebfläche</p>
                   </div>
                   <div>
                     <p className="v3-stat-zahl">
@@ -181,13 +178,13 @@ export default async function HomePage() {
                   {ueberBild ? (
                     <Bild
                       media={ueberBild}
-                      alt="Frank Köth, Winzer"
+                      alt="Tim und Frank Köth"
                       size="hero"
                       sizes="(max-width: 960px) 100vw, 45vw"
                     />
                   ) : (
                     <div className="ph" aria-hidden="true">
-                      Porträt: Frank Köth
+                      Porträt: Tim &amp; Frank
                     </div>
                   )}
                 </div>
@@ -215,13 +212,12 @@ export default async function HomePage() {
             </h2>
             {weine.length === 0 ? (
               <p className="v3-fliess">
-                Unsere Weine werden gerade eingepflegt – schauen Sie bald wieder vorbei.
+                Unsere Weine werden gerade eingepflegt – schau bald wieder vorbei.
               </p>
             ) : (
               <div className="v3-grid-weine">
                 {weine.map((wein) => {
-                  const artLabel = WEINART_LABELS[wein.weinart] ?? ''
-                  const artZeile = [artLabel, wein.jahrgang].filter(Boolean).join(' · ')
+                  const artZeile = WEINART_LABELS[wein.weinart] ?? ''
                   return (
                     <article
                       key={wein.id}
@@ -291,6 +287,7 @@ export default async function HomePage() {
                     event.pdf && typeof event.pdf === 'object' && event.pdf.url
                       ? event.pdf.url
                       : null
+                  const maps = mapsHref(event.kartenLink, event.ort)
                   return (
                     <article
                       key={event.id}
@@ -306,7 +303,24 @@ export default async function HomePage() {
                         {event.ausgebucht && <span className="evt2-badge">Ausgebucht</span>}
                       </div>
                       <h3 className="evt2-titel">{event.titel}</h3>
-                      {event.ort && <p className="evt2-ort">{event.ort}</p>}
+                      {event.ort && (
+                        <p className="evt2-ort">
+                          {event.ort}
+                          {maps && (
+                            <>
+                              {' · '}
+                              <a
+                                href={maps}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="evt2-maps"
+                              >
+                                Google Maps ↗
+                              </a>
+                            </>
+                          )}
+                        </p>
+                      )}
                       {event.zeiten && (
                         <ul className="evt2-zeiten">
                           {parseOeffnungszeiten(event.zeiten).map((z, i) => (
@@ -360,144 +374,35 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* VERLEIH */}
+        {/* VERLEIH – einfacher Teaser (keine konkreten Produkte) */}
         <section id="verleih" className="v3-verleih">
           <div className="v3-verleih-box">
-            <div className="v3-verleih-inner">
+            <div className="v3-verleih-inner v3-verleih-simpel">
               <div data-reveal="" className="v3-verleih-eyebrow">
                 <span className="v3-eyebrow-num">(04)</span>
                 <span className="v3-eyebrow-label">Verleih</span>
               </div>
-              <div data-reveal="" className="v3-verleih-kopf">
-                <h2 className="v3-h2">
-                  Ausschankwagen &amp; <em>Technik</em> mieten
-                </h2>
-                <p>
-                  Für Vereinsfeste, Hochzeiten und Firmenfeiern – gepflegt, geprüft und auf Wunsch
-                  mit Lieferung.
-                </p>
-              </div>
-              {verleih.length > 0 && (
-                <div className="v3-grid-verleih">
-                  {verleih.map((item) => {
-                    const bild =
-                      Array.isArray(item.bilder) && item.bilder.length > 0 ? item.bilder[0] : null
-                    const verfuegbar = item.verfuegbar !== false
-                    return (
-                      <article key={item.id} data-reveal="" className="v3-verleih-karte">
-                        <div className="v3-verleih-bild">
-                          {bild ? (
-                            <Bild
-                              media={bild}
-                              alt={item.name}
-                              size="card"
-                              sizes="(max-width: 960px) 100vw, 25vw"
-                            />
-                          ) : (
-                            <img
-                              src={`/placeholders/verleih-${verleihPlatzhalter(item.kategorie)}.svg`}
-                              alt=""
-                              aria-hidden="true"
-                              style={{
-                                position: 'absolute',
-                                inset: 0,
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover',
-                              }}
-                            />
-                          )}
-                        </div>
-                        <div className="v3-verleih-body">
-                          {item.kategorie && (
-                            <p className="v3-verleih-kat">
-                              {VERLEIH_KATEGORIE_LABELS[item.kategorie] ?? item.kategorie}
-                            </p>
-                          )}
-                          <h3 className="v3-verleih-name">{item.name}</h3>
-                          {item.beschreibung && (
-                            <p className="v3-verleih-besch">{item.beschreibung}</p>
-                          )}
-                          <div className="v3-verleih-preiszeile">
-                            {item.preisInfo && (
-                              <span className="v3-verleih-preis">{item.preisInfo}</span>
-                            )}
-                          </div>
-                          <p className={`v3-verleih-status${verfuegbar ? '' : ' ist-anfrage'}`}>
-                            <span className="punkt" />
-                            {verfuegbar ? 'Verfügbar' : 'Auf Anfrage'}
-                          </p>
-                        </div>
-                      </article>
-                    )
-                  })}
-                </div>
-              )}
-              <p data-reveal="" className="v3-verleih-hinweis">
-                Anfragen mit Wunschtermin an <a href={`mailto:${email}`}>{email}</a> – Abholung in
-                64367 Mühltal oder Lieferung nach Absprache.
+              <h2 data-reveal="" className="v3-verleih-simpel-titel">
+                Du kannst bei uns auch <em>leihen</em>.
+              </h2>
+              <p data-reveal="" className="v3-verleih-simpel-text">
+                Ob Ausschankwagen, Zelte, Beleuchtung oder Stromaggregat – wenn du auf unserem
+                Eventberg oder anderswo feiern willst, helfen wir dir gern mit der passenden
+                Ausstattung aus. Melde dich einfach, dann finden wir gemeinsam die beste Lösung.
               </p>
+              <div data-reveal="" className="v3-verleih-simpel-cta">
+                <a href={`tel:${telefon.replace(/[^\d+]/g, '')}`} className="v3-verleih-btn">
+                  <span className="v3-verleih-btn-label">Anrufen</span>
+                  {telefon}
+                </a>
+                <a href={`mailto:${email}`} className="v3-verleih-btn ist-sekundaer">
+                  <span className="v3-verleih-btn-label">E-Mail</span>
+                  {email}
+                </a>
+              </div>
             </div>
           </div>
         </section>
-
-        {/* VERLEIH – Variante 2 (ohne Bilder, als Liste) */}
-        {verleih.length > 0 && (
-          <section className="v3-verleih2">
-            <div className="v3-verleih2-box">
-              <div className="v3-verleih2-inner">
-                <div data-reveal="" className="v3-verleih2-eyebrow">
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 18 }}>
-                    <span className="v3-eyebrow-num">(04)</span>
-                    <span className="v3-eyebrow-label">Verleih</span>
-                  </div>
-                  <span className="v3-eyebrow-label">Ausstattung &amp; Technik</span>
-                </div>
-                <h2 data-reveal="" className="v3-verleih2-h2">
-                  Alles für Ihr <em>Fest</em>.
-                </h2>
-                <ul className="v3-verleih2-liste">
-                  {verleih.map((item, i) => {
-                    const verfuegbar = item.verfuegbar !== false
-                    return (
-                      <li key={item.id} data-reveal="" className="v3-verleih2-zeile">
-                        <span className="v3-verleih2-num">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <div className="v3-verleih2-haupt">
-                          {item.kategorie && (
-                            <span className="v3-verleih2-kat">
-                              {VERLEIH_KATEGORIE_LABELS[item.kategorie] ?? item.kategorie}
-                            </span>
-                          )}
-                          <h3 className="v3-verleih2-name">{item.name}</h3>
-                          {item.beschreibung && (
-                            <p className="v3-verleih2-besch">{item.beschreibung}</p>
-                          )}
-                        </div>
-                        <div className="v3-verleih2-meta">
-                          {item.preisInfo && (
-                            <span className="v3-verleih2-preis">{item.preisInfo}</span>
-                          )}
-                          <span
-                            className={`v3-verleih2-status${verfuegbar ? '' : ' ist-anfrage'}`}
-                          >
-                            <span className="punkt" />
-                            {verfuegbar ? 'Verfügbar' : 'Auf Anfrage'}
-                          </span>
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
-                <p data-reveal="" className="v3-verleih2-hinweis">
-                  Anfragen mit Wunschtermin an <a href={`mailto:${email}`}>{email}</a> – Abholung in
-                  64367 Mühltal oder Lieferung nach Absprache.
-                </p>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* KONTAKT + FOOTER */}
         <footer id="kontakt" className="v3-footer">
@@ -508,7 +413,7 @@ export default async function HomePage() {
             </div>
             <div data-reveal="" className="v3-footer-claim">
               <h2>
-                Lust auf ein Glas? <a href={`mailto:${email}`}>Sagen Sie Hallo.</a>
+                Lust auf ein Glas? <a href={`mailto:${email}`}>Sag Hallo.</a>
               </h2>
             </div>
             <div className="v3-footer-grid">
@@ -535,34 +440,6 @@ export default async function HomePage() {
                 <div className="v3-social">
                   <a href={kontakt.instagram || 'https://instagram.com'}>Instagram</a>
                   <a href={kontakt.facebook || 'https://facebook.com'}>Facebook</a>
-                </div>
-              </div>
-              <div data-reveal="">
-                <p className="v3-footer-label">Hofverkauf &amp; Vinothek</p>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 6,
-                    fontSize: 15,
-                    maxWidth: 260,
-                  }}
-                >
-                  {zeiten.map((eintrag, i) =>
-                    eintrag.length === 2 ? (
-                      <p
-                        key={i}
-                        className={`v3-oeff-row${eintrag[1].toLowerCase().includes('geschlossen') ? ' zu' : ''}`}
-                      >
-                        <span>{eintrag[0]}</span>
-                        <span>{eintrag[1]}</span>
-                      </p>
-                    ) : (
-                      <p key={i} className="v3-oeff-row">
-                        {eintrag[0]}
-                      </p>
-                    ),
-                  )}
                 </div>
               </div>
             </div>

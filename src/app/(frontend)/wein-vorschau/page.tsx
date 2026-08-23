@@ -14,20 +14,18 @@ import '../detail.css'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Wein – Vorschau | Weinmacher Mühltal',
+  title: 'Wein – Vorschau | Nieder-Ramstädter Weinmacher',
   robots: { index: false, follow: false },
 }
 
 // Demo-Wein, falls im CMS noch keiner gepflegt ist – damit die Vorschau
 // immer etwas zeigt.
 const DEMO_WEIN: Partial<Weine> = {
-  name: 'Mühltaler Riesling',
+  name: 'Bartholomäus',
   weinart: 'weisswein',
-  jahrgang: 2024,
-  rebsorte: 'Riesling',
+  rebsorte: 'Cabernet Blanc',
   beschreibung:
-    'Knackige Säure, grüner Apfel und feiner Feuerstein – unser Klassiker von der Steillage. Ein Riesling, der das Mühltal im Glas erzählt: kühl, klar und mit dieser mineralischen Handschrift, die nur der Schieferboden hier hervorbringt.',
-  preis: 12.5,
+    'Unser Weißwein aus der Rebsorte Cabernet Blanc – frisch, klar und angenehm unkompliziert. Ein Wein, der das Frankensteiner Land im Glas erzählt.',
   flaschengroesse: '0,75 l',
   ausverkauft: false,
 }
@@ -41,15 +39,14 @@ export default async function WeinVorschauPage() {
   ])
 
   const wein = (weinResult.docs[0] as Weine | undefined) ?? (DEMO_WEIN as Weine)
-  const email = kontakt.email || 'hallo@weinmacher-muehltal.de'
+  const email = kontakt.email || 'koeth.weinbau@gmx.de'
 
   const artLabel = WEINART_LABELS[wein.weinart] ?? ''
-  const artZeile = [artLabel, wein.jahrgang].filter(Boolean).join(' · ')
+  const artZeile = artLabel
   const istBronze = weinartIstBronze(wein.weinart)
 
   const fakten: Array<[string, string]> = [
     artLabel ? ['Weinart', artLabel] : null,
-    wein.jahrgang ? ['Jahrgang', String(wein.jahrgang)] : null,
     wein.rebsorte ? ['Rebsorte', wein.rebsorte] : null,
     ['Flaschengröße', wein.flaschengroesse || '0,75 l'],
   ].filter(Boolean) as Array<[string, string]>
@@ -155,7 +152,7 @@ export default async function WeinVorschauPage() {
           <div className="det-hinweis">
             <p>
               <strong>Ab Hof erhältlich</strong> oder per Versand innerhalb Deutschlands. Für
-              größere Mengen und Fragen zu Jahrgängen schreiben Sie uns einfach.
+              größere Mengen und offene Fragen schreib uns einfach.
             </p>
             <a href={`mailto:${email}?subject=${bestellBetreff}`} className="det-btn-primary">
               Anfrage per E-Mail

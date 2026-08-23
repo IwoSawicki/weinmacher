@@ -52,66 +52,51 @@ export async function GET(req: NextRequest) {
   const reset = (req.nextUrl.searchParams.get('reset') || '').toLowerCase()
   const resetEvents = reset === 'events' || reset === 'all'
   const resetKontakt = reset === 'kontakt' || reset === 'all'
+  const resetWeine = reset === 'weine' || reset === 'all'
 
   const payload = await getPayload({ config: await config })
   const ergebnis: Record<string, string> = {}
 
-  // --- WEINE ---
+  // --- WEINE (aktuelles Sortiment) ---
   const weineCount = await payload.count({ collection: 'weine' })
-  if (weineCount.totalDocs === 0) {
+  if (resetWeine && weineCount.totalDocs > 0) {
+    await payload.delete({ collection: 'weine', where: { id: { exists: true } } })
+  }
+  if (resetWeine || weineCount.totalDocs === 0) {
     const weine = [
       {
-        name: 'Mühltaler Riesling',
+        name: 'Bartholomäus',
         weinart: 'weisswein',
-        jahrgang: 2024,
+        rebsorte: 'Cabernet Blanc',
+        beschreibung:
+          'Unser Weißwein aus der pilzwiderstandsfähigen Rebsorte Cabernet Blanc – frisch, klar und angenehm unkompliziert.',
+        flaschengroesse: '0,75 l',
+        ausverkauft: false,
+      },
+      {
+        name: 'Rosarot',
+        weinart: 'rose',
+        rebsorte: 'Regent & Cabernet Cortis',
+        beschreibung:
+          'Ein fruchtiger Rosé aus Regent und Cabernet Cortis – saftig, leicht und herrlich zum Draußensitzen.',
+        flaschengroesse: '0,75 l',
+        ausverkauft: false,
+      },
+      {
+        name: 'Traubensaft',
+        weinart: 'traubensaft',
+        rebsorte: '',
+        beschreibung:
+          'Traubensaft ist Traubensaft – naturtrüb und direkt aus unseren eigenen Trauben gepresst.',
+        flaschengroesse: '0,75 l',
+        ausverkauft: false,
+      },
+      {
+        name: '0,NIX',
+        weinart: 'alkoholfrei',
         rebsorte: 'Riesling',
         beschreibung:
-          'Knackige Säure, grüner Apfel und feiner Feuerstein – unser Klassiker von der Steillage.',
-        preis: 12.5,
-        flaschengroesse: '0,75 l',
-        ausverkauft: false,
-      },
-      {
-        name: 'Steinmühle',
-        weinart: 'weisswein',
-        jahrgang: 2023,
-        rebsorte: 'Grauburgunder',
-        beschreibung:
-          'Reife Birne, ein Hauch Nuss und cremiger Schmelz – ausgebaut im großen Holzfass.',
-        preis: 11.9,
-        flaschengroesse: '0,75 l',
-        ausverkauft: true,
-      },
-      {
-        name: 'Rosé vom Hang',
-        weinart: 'rose',
-        jahrgang: 2024,
-        rebsorte: 'Portugieser',
-        beschreibung:
-          'Zartes Lachsrosa, saftige Erdbeere, herrlich unkompliziert – der Sommer im Glas.',
-        preis: 9.8,
-        flaschengroesse: '0,75 l',
-        ausverkauft: false,
-      },
-      {
-        name: 'Alte Rebe',
-        weinart: 'rotwein',
-        jahrgang: 2022,
-        rebsorte: 'Spätburgunder',
-        beschreibung:
-          'Von über 40 Jahre alten Stöcken: Sauerkirsche, Waldboden und seidiges Tannin.',
-        preis: 18.9,
-        flaschengroesse: '0,75 l',
-        ausverkauft: false,
-      },
-      {
-        name: 'Cuvée Bronze',
-        weinart: 'rotwein',
-        jahrgang: 2021,
-        rebsorte: 'Merlot & Dornfelder',
-        beschreibung:
-          'Unser Flaggschiff: 18 Monate Barrique, dunkle Beeren, Kakao und langer Abgang.',
-        preis: 21.5,
+          'Unser alkoholfreier Riesling: der volle Riesling-Genuss – aber ganz ohne Alkohol. Null Promille, null Kompromisse.',
         flaschengroesse: '0,75 l',
         ausverkauft: false,
       },
@@ -119,9 +104,9 @@ export async function GET(req: NextRequest) {
     for (const w of weine) {
       await payload.create({ collection: 'weine', data: w as never })
     }
-    ergebnis.weine = `${weine.length} angelegt`
+    ergebnis.weine = resetWeine ? `${weine.length} neu geladen (Reset)` : `${weine.length} angelegt`
   } else {
-    ergebnis.weine = `übersprungen (${weineCount.totalDocs} vorhanden)`
+    ergebnis.weine = `übersprungen (${weineCount.totalDocs} vorhanden) – aktuelles Sortiment per ?reset=weine`
   }
 
   // --- EVENTS (echte WeinZeit-Ausschanktermine im Weinberg) ---
@@ -202,25 +187,22 @@ export async function GET(req: NextRequest) {
 
   // --- KONTAKT (Global) ---
   const kontakt = await payload.findGlobal({ slug: 'kontakt' })
-  const ADRESSE = 'Griesbachweg 16\n64367 Mühltal'
+  const KONTAKT_DATEN = {
+    name: 'Nieder-Ramstädter Weinmacher',
+    adresse: 'Griesbachweg 16\n64367 Mühltal',
+    telefon: '06151 6795 768',
+    email: 'koeth.weinbau@gmx.de',
+    oeffnungszeiten: '',
+  }
   if (!kontakt.name && !kontakt.adresse) {
-    await payload.updateGlobal({
-      slug: 'kontakt',
-      data: {
-        name: 'Weinmacher Mühltal',
-        adresse: ADRESSE,
-        email: 'hallo@weinmacher-muehltal.de',
-        oeffnungszeiten:
-          'Mi – Fr | 15 – 19 Uhr\nSamstag | 10 – 18 Uhr\nSonntag | 11 – 17 Uhr\nMo & Di | geschlossen',
-      } as never,
-    })
+    await payload.updateGlobal({ slug: 'kontakt', data: KONTAKT_DATEN as never })
     ergebnis.kontakt = 'befüllt'
   } else if (resetKontakt) {
-    // Nur die Adresse aktualisieren, restliche gepflegte Felder unangetastet lassen
-    await payload.updateGlobal({ slug: 'kontakt', data: { adresse: ADRESSE } as never })
-    ergebnis.kontakt = 'Adresse aktualisiert (Reset)'
+    // Alle Kontaktdaten auf den aktuellen Stand setzen (inkl. Öffnungszeiten leeren)
+    await payload.updateGlobal({ slug: 'kontakt', data: KONTAKT_DATEN as never })
+    ergebnis.kontakt = 'Kontaktdaten aktualisiert (Reset)'
   } else {
-    ergebnis.kontakt = 'übersprungen (bereits gepflegt) – Adresse per ?reset=kontakt'
+    ergebnis.kontakt = 'übersprungen (bereits gepflegt) – Kontaktdaten per ?reset=kontakt'
   }
 
   return NextResponse.json({ ok: true, ergebnis })

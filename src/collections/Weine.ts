@@ -10,7 +10,7 @@ export const Weine: CollectionConfig = {
   admin: {
     group: 'Inhalte',
     useAsTitle: 'name',
-    defaultColumns: ['name', 'weinart', 'jahrgang', 'preis', 'ausverkauft'],
+    defaultColumns: ['name', 'weinart', 'preis', 'ausverkauft'],
     description:
       'Alle Weine, die auf der Website erscheinen. Die Reihenfolge lässt sich per Ziehen ändern.',
   },
@@ -40,15 +40,10 @@ export const Weine: CollectionConfig = {
             { label: 'Rotwein', value: 'rotwein' },
             { label: 'Rosé', value: 'rose' },
             { label: 'Sekt / Schaumwein', value: 'sekt' },
+            { label: 'Traubensaft', value: 'traubensaft' },
+            { label: 'Alkoholfrei', value: 'alkoholfrei' },
             { label: 'Sonstiges', value: 'sonstiges' },
           ],
-        },
-        {
-          name: 'jahrgang',
-          label: 'Jahrgang',
-          type: 'number',
-          min: 1950,
-          max: 2100,
         },
         {
           name: 'rebsorte',
