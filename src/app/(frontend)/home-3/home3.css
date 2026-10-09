@@ -459,7 +459,7 @@
   border-radius: 999px;
 }
 .v3-wein-bild {
-  height: 300px;
+  aspect-ratio: 2 / 3;
   background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
@@ -532,6 +532,52 @@
   color: var(--muted);
 }
 
+/* WEINE auf dunklem Hintergrund (lässt die Flaschenfotos poppen) */
+.v3-weine-dunkel {
+  background: #201a1e;
+  color: #f7f4ef;
+}
+.v3-weine-dunkel .v3-eyebrow-num {
+  color: #c9a066;
+}
+.v3-weine-dunkel .v3-eyebrow-label {
+  color: rgba(247, 244, 239, 0.55);
+}
+.v3-weine-dunkel .v3-h2 {
+  color: #f7f4ef;
+}
+.v3-weine-dunkel .v3-h2 .lila,
+.v3-weine-dunkel .v3-h2 em {
+  color: #c9a066;
+}
+.v3-weine-dunkel .v3-fliess {
+  color: rgba(247, 244, 239, 0.6);
+}
+.v3-weine-dunkel .v3-wein-bild {
+  background: #2a2328;
+}
+.v3-weine-dunkel .v3-wein-name {
+  color: #f7f4ef;
+}
+.v3-weine-dunkel .v3-wein-rebsorte,
+.v3-weine-dunkel .v3-wein-besch,
+.v3-weine-dunkel .v3-wein-einheit {
+  color: rgba(247, 244, 239, 0.6);
+}
+.v3-weine-dunkel .v3-wein-art {
+  color: #b79bc9;
+}
+.v3-weine-dunkel .v3-wein-art.ist-bronze,
+.v3-weine-dunkel .v3-wein-kicker {
+  color: #c9a066;
+}
+.v3-weine-dunkel .v3-wein-preiszeile {
+  border-top-color: rgba(247, 244, 239, 0.14);
+}
+.v3-weine-dunkel .v3-wein-preis {
+  color: #f7f4ef;
+}
+
 /* WEINGELEE */
 .v3-grid-gelee {
   display: grid;
@@ -554,7 +600,7 @@
 }
 .v3-gelee-bild {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 .v3-gelee-bild img {
@@ -1507,9 +1553,6 @@
   .v3-grid-weine {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-  }
-  .v3-wein-bild {
-    height: 200px;
   }
   .v3-wein-name {
     font-size: 21px;

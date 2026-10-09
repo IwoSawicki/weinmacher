@@ -180,7 +180,7 @@ export default function HomePage() {
         </section>
 
         {/* WEINE */}
-        <section id="weine" className="v3-section kompakt">
+        <section id="weine" className="v3-section kompakt v3-weine-dunkel">
           <div className="v3-inner">
             <div data-reveal="" className="v3-eyebrow spaced">
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 18 }}>
