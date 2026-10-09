@@ -1574,7 +1574,7 @@
 @media (max-width: 640px) {
   .v3-grid-weine {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 40px 12px;
   }
   .v3-wein-name {
     font-size: 21px;
