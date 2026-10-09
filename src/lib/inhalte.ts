@@ -62,7 +62,7 @@ export const WEINE: Wein[] = [
     beschreibung:
       'Unser alkoholfreier Riesling: der volle Riesling-Genuss – aber ganz ohne Alkohol. Null Promille, null Kompromisse.',
     flaschengroesse: '0,75 l',
-    bild: '', // Foto folgt – einfach '/bilder/weine/0-nix.webp' eintragen, sobald hochgeladen
+    bild: '/bilder/weine/0-nix.webp',
     ausverkauft: false,
   },
 ]
