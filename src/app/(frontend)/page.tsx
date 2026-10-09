@@ -69,6 +69,7 @@ export default function HomePage() {
   const heroVideo = BILDER.heroVideo
   const heroVideoMobile = BILDER.heroVideoMobile
   const heroPoster = BILDER.heroPoster
+  const heroPosterMobile = BILDER.heroPosterMobile
   const ueberBild = BILDER.ueber
   const logoUrl = BILDER.logo || undefined
 
@@ -101,7 +102,7 @@ export default function HomePage() {
                     loop
                     playsInline
                     preload="none"
-                    poster={heroPoster || undefined}
+                    poster={heroPosterMobile || heroPoster || undefined}
                     aria-hidden="true"
                   >
                     <source src={heroVideoMobile || heroVideo} type="video/mp4" />

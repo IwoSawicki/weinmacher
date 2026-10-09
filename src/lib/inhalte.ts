@@ -155,6 +155,7 @@ export const BILDER = {
   heroVideo: '/bilder/hero.mp4', // Drohnen-Reel über Nieder-Ramstadt (Querformat, ohne Ton)
   heroVideoMobile: '/bilder/hero-mobile.mp4', // kleinere Version für Mobil (spart Daten)
   heroPoster: '/bilder/hero-poster.jpg', // Standbild, bis das Video lädt
+  heroPosterMobile: '/bilder/hero-poster-mobile.jpg', // Hochkant-Standbild für Mobil
   hero: '', // optionales Standbild statt Video (z. B. '/bilder/hero.jpg')
   ueber: '/bilder/ueber.webp', // Tim & Frank im Weinberg
   logo: '', // z. B. '/bilder/logo.png' (Header/Favicon)
