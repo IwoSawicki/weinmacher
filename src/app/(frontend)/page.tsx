@@ -11,7 +11,7 @@ import {
   WEINART_LABELS,
   weinartIstBronze,
 } from '@/lib/format'
-import { BILDER, kommendeEvents, KONTAKT, WEINE } from '@/lib/inhalte'
+import { BILDER, GELEE, kommendeEvents, KONTAKT, WEINE } from '@/lib/inhalte'
 
 import { CountUp } from './CountUp'
 import { EventsCountdown } from './EventsCountdown'
@@ -249,12 +249,57 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* WEINGELEE */}
+        <section id="gelee" className="v3-section kompakt">
+          <div className="v3-inner">
+            <div data-reveal="" className="v3-eyebrow spaced">
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 18 }}>
+                <span className="v3-eyebrow-num">(03)</span>
+                <span className="v3-eyebrow-label">Weingelee</span>
+              </div>
+              <span className="v3-eyebrow-label">Bio-Qualität · hausgemacht</span>
+            </div>
+            <h2 data-reveal="" className="v3-h2 v3-h2-block">
+              Mehr Genuss – <em className="lila">aus unseren Trauben</em>.
+            </h2>
+            <div className="v3-grid-gelee">
+              {GELEE.map((produkt) => (
+                <article key={produkt.name} data-reveal="" className="v3-gelee-karte">
+                  <div className="v3-gelee-bild">
+                    {produkt.bild ? (
+                      <Bild
+                        src={produkt.bild}
+                        alt={produkt.name}
+                        sizes="(max-width: 860px) 100vw, 50vw"
+                      />
+                    ) : (
+                      <div className="ph" aria-hidden="true">
+                        {produkt.name}
+                      </div>
+                    )}
+                    {produkt.badge && <span className="v3-gelee-badge">{produkt.badge}</span>}
+                  </div>
+                  <div className="v3-gelee-body">
+                    {produkt.variante && <p className="v3-gelee-variante">{produkt.variante}</p>}
+                    <h3 className="v3-gelee-name">{produkt.name}</h3>
+                    <p className="v3-gelee-besch">{produkt.beschreibung}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p data-reveal="" className="v3-gelee-hinweis">
+              Erhältlich ab Hof oder bei unseren Events. Anfragen gern an{' '}
+              <a href={`mailto:${email}`}>{email}</a>.
+            </p>
+          </div>
+        </section>
+
         {/* EVENTS – Countdown + gestapelte Events */}
         {events.length > 0 && (
           <section id="events" className="v3-section kompakt">
             <div className="v3-inner">
               <div data-reveal="" className="v3-eyebrow">
-                <span className="v3-eyebrow-num">(03)</span>
+                <span className="v3-eyebrow-num">(04)</span>
                 <span className="v3-eyebrow-label">Events</span>
               </div>
               <h2 data-reveal="" className="v3-h2 v3-h2-block" style={{ maxWidth: 760 }}>
@@ -342,7 +387,7 @@ export default function HomePage() {
           <div className="v3-verleih-box">
             <div className="v3-verleih-inner v3-verleih-simpel">
               <div data-reveal="" className="v3-verleih-eyebrow">
-                <span className="v3-eyebrow-num">(04)</span>
+                <span className="v3-eyebrow-num">(05)</span>
                 <span className="v3-eyebrow-label">Verleih</span>
               </div>
               <h2 data-reveal="" className="v3-verleih-simpel-titel">
@@ -371,7 +416,7 @@ export default function HomePage() {
         <footer id="kontakt" className="v3-footer">
           <div className="v3-footer-inner">
             <div data-reveal="" className="v3-eyebrow">
-              <span className="v3-eyebrow-num">(05)</span>
+              <span className="v3-eyebrow-num">(06)</span>
               <span className="v3-eyebrow-label">Kontakt</span>
             </div>
             <div data-reveal="" className="v3-footer-claim">

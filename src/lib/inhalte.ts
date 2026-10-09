@@ -67,6 +67,34 @@ export const WEINE: Wein[] = [
   },
 ]
 
+// --- Weingelee / weitere Produkte ---
+export type Produkt = {
+  name: string
+  variante?: string // z. B. „Passierte Cuvée"
+  beschreibung: string
+  badge?: string // z. B. „Bio-Qualität"
+  bild?: string
+}
+
+export const GELEE: Produkt[] = [
+  {
+    name: 'Trauben-Gelee Weiß',
+    variante: 'Passierte Cuvée',
+    beschreibung:
+      'Feines Weingelee aus unseren weißen Trauben – hell, fruchtig und zart. Ohne künstliche Farb- und Konservierungsstoffe, hausgemacht.',
+    badge: 'Bio-Qualität',
+    bild: '/bilder/produkte/gelee-weiss.webp',
+  },
+  {
+    name: 'Trauben-Gelee Rot',
+    variante: 'Passierte Cuvée',
+    beschreibung:
+      'Kräftiges Weingelee aus unseren roten Trauben – tief, aromatisch und vollmundig. Ohne künstliche Farb- und Konservierungsstoffe, hausgemacht.',
+    badge: 'Bio-Qualität',
+    bild: '/bilder/produkte/gelee-rot.webp',
+  },
+]
+
 export type Event = {
   titel: string
   datum: string // ISO-Datum, z. B. '2026-10-24T17:00:00+02:00'
