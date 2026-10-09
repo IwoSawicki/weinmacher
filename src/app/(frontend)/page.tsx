@@ -68,6 +68,7 @@ export default function HomePage() {
   const heroBild = BILDER.hero
   const heroVideo = BILDER.heroVideo
   const heroVideoMobile = BILDER.heroVideoMobile
+  const heroMobileBild = BILDER.heroMobileBild
   const heroPoster = BILDER.heroPoster
   const heroPosterMobile = BILDER.heroPosterMobile
   const ueberBild = BILDER.ueber
@@ -95,18 +96,28 @@ export default function HomePage() {
                   >
                     <source src={heroVideo} type="video/mp4" />
                   </video>
-                  <video
-                    className="v2-hero-video v2-hero-video-mobile"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                    poster={heroPosterMobile || heroPoster || undefined}
-                    aria-hidden="true"
-                  >
-                    <source src={heroVideoMobile || heroVideo} type="video/mp4" />
-                  </video>
+                  {heroMobileBild ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      className="v2-hero-img-mobile"
+                      src={heroMobileBild}
+                      alt="Weinberg im Frankensteiner Land"
+                      decoding="async"
+                    />
+                  ) : (
+                    <video
+                      className="v2-hero-video v2-hero-video-mobile"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                      poster={heroPosterMobile || heroPoster || undefined}
+                      aria-hidden="true"
+                    >
+                      <source src={heroVideoMobile || heroVideo} type="video/mp4" />
+                    </video>
+                  )}
                 </>
               ) : heroBild ? (
                 <Bild src={heroBild} alt="Weinberg im Frankensteiner Land" sizes="100vw" priority />

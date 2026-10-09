@@ -220,11 +220,21 @@
 .v2-hero-video-mobile {
   display: none;
 }
+/* Mobil-Hero als scharfes Standfoto (statt Video) */
+.v2-hero-img-mobile {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
 @media (max-width: 768px) {
   .v2-hero-video-desktop {
     display: none;
   }
-  .v2-hero-video-mobile {
+  .v2-hero-video-mobile,
+  .v2-hero-img-mobile {
     display: block;
   }
 }

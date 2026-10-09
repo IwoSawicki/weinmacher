@@ -153,7 +153,8 @@ export const KONTAKT = {
 // Bild-Pfade unter /public. Leer lassen = schöner Verlauf/Platzhalter statt Bild.
 export const BILDER = {
   heroVideo: '/bilder/hero.mp4', // Drohnen-Reel über Nieder-Ramstadt (Querformat, ohne Ton)
-  heroVideoMobile: '/bilder/hero-mobile.mp4', // kleinere Version für Mobil (spart Daten)
+  heroVideoMobile: '/bilder/hero-mobile.mp4', // (nicht mehr genutzt – Mobil zeigt Foto)
+  heroMobileBild: '/bilder/hero-mobile.webp', // Mobil: scharfes Standfoto statt Video
   heroPoster: '/bilder/hero-poster.jpg', // Standbild, bis das Video lädt
   heroPosterMobile: '/bilder/hero-poster-mobile.jpg', // Hochkant-Standbild für Mobil
   hero: '', // optionales Standbild statt Video (z. B. '/bilder/hero.jpg')
