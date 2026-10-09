@@ -363,23 +363,33 @@ export default function HomePage() {
                         {event.ausgebucht && <span className="evt2-badge">Ausgebucht</span>}
                       </div>
                       <h3 className="evt2-titel">{event.titel}</h3>
-                      {event.ort && (
-                        <p className="evt2-ort">
-                          {event.ort}
-                          {maps && (
-                            <>
-                              {' · '}
-                              <a
-                                href={maps}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="evt2-maps"
-                              >
-                                Google Maps ↗
-                              </a>
-                            </>
-                          )}
-                        </p>
+                      {event.ort && <p className="evt2-ort">{event.ort}</p>}
+                      {maps && (
+                        <a
+                          href={maps}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="evt2-maps"
+                        >
+                          <svg className="evt2-maps-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M12 21.5s-6.5-5.3-6.5-10.8a6.5 6.5 0 1 1 13 0c0 5.5-6.5 10.8-6.5 10.8Z"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.6"
+                              strokeLinejoin="round"
+                            />
+                            <circle
+                              cx="12"
+                              cy="10.5"
+                              r="2.3"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.6"
+                            />
+                          </svg>
+                          <span>Auf Google Maps ansehen</span>
+                        </a>
                       )}
                       {event.zeiten && (
                         <ul className="evt2-zeiten">
