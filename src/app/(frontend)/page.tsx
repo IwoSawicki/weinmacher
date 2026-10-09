@@ -281,7 +281,7 @@ export default function HomePage() {
         </section>
 
         {/* WEINGELEE */}
-        <section id="gelee" className="v3-section kompakt">
+        <section id="gelee" className="v3-section kompakt v3-gelee-section">
           <div className="v3-inner">
             <div data-reveal="" className="v3-eyebrow spaced">
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 18 }}>

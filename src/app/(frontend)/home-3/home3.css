@@ -583,11 +583,39 @@
 }
 
 /* WEINGELEE */
+.v3-section.v3-gelee-section {
+  padding-top: clamp(66px, 9vw, 120px);
+}
 .v3-grid-gelee {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 300px));
   gap: clamp(20px, 3vw, 36px);
   margin-top: clamp(12px, 2vw, 24px);
+}
+@media (max-width: 640px) {
+  .v3-grid-gelee {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .v3-gelee-body {
+    padding: 14px 14px 16px;
+  }
+  .v3-gelee-name {
+    font-size: 20px;
+  }
+  .v3-gelee-besch {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .v3-gelee-badge {
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+  .v3-gelee-preis {
+    font-size: 19px;
+  }
 }
 .v3-gelee-karte {
   display: flex;
