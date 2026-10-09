@@ -534,8 +534,12 @@
 
 /* WEINE auf dunklem Hintergrund (lässt die Flaschenfotos poppen) */
 .v3-weine-dunkel {
-  background: #201a1e;
+  background: #2a1f12;
   color: #f7f4ef;
+}
+/* Mehr Luft nach oben (überschreibt .kompakt padding-top:0) */
+.v3-section.v3-weine-dunkel {
+  padding-top: clamp(66px, 9vw, 120px);
 }
 .v3-weine-dunkel .v3-eyebrow-num {
   color: #c9a066;
@@ -554,7 +558,7 @@
   color: rgba(247, 244, 239, 0.6);
 }
 .v3-weine-dunkel .v3-wein-bild {
-  background: #2a2328;
+  background: #352817;
 }
 .v3-weine-dunkel .v3-wein-name {
   color: #f7f4ef;
@@ -808,7 +812,7 @@
   padding: 0 10px;
 }
 .v3-verleih-box {
-  background: #201a1e;
+  background: #2a1f12;
   border-radius: 28px;
   padding: clamp(72px, 10vw, 150px) clamp(20px, 4vw, 56px);
 }
