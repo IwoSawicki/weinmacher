@@ -146,7 +146,7 @@ export const KONTAKT = {
 // Bild-Pfade unter /public. Leer lassen = schöner Verlauf/Platzhalter statt Bild.
 export const BILDER = {
   hero: '', // z. B. '/bilder/hero.jpg' (Querformat, Weinberg)
-  ueber: '', // z. B. '/bilder/ueber.jpg' (Tim & Frank)
+  ueber: '/bilder/ueber.webp', // Tim & Frank im Weinberg
   logo: '', // z. B. '/bilder/logo.png' (Header/Favicon)
   // Social-/Link-Vorschau (Open Graph). Vorerst das Bartholomäus-Bild.
   og: '/bilder/weine/bartholomaeus.webp',
