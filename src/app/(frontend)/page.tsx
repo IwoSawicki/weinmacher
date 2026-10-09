@@ -66,6 +66,9 @@ export default function HomePage() {
   const adresse = KONTAKT.adresse
 
   const heroBild = BILDER.hero
+  const heroVideo = BILDER.heroVideo
+  const heroVideoMobile = BILDER.heroVideoMobile
+  const heroPoster = BILDER.heroPoster
   const ueberBild = BILDER.ueber
   const logoUrl = BILDER.logo || undefined
 
@@ -77,7 +80,34 @@ export default function HomePage() {
         <header id="start" className="v2-hero">
           <div className="v2-hero-frame">
             <div className="v2-hero-img">
-              {heroBild ? (
+              {heroVideo ? (
+                <>
+                  <video
+                    className="v2-hero-video v2-hero-video-desktop"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                    poster={heroPoster || undefined}
+                    aria-hidden="true"
+                  >
+                    <source src={heroVideo} type="video/mp4" />
+                  </video>
+                  <video
+                    className="v2-hero-video v2-hero-video-mobile"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                    poster={heroPoster || undefined}
+                    aria-hidden="true"
+                  >
+                    <source src={heroVideoMobile || heroVideo} type="video/mp4" />
+                  </video>
+                </>
+              ) : heroBild ? (
                 <Bild src={heroBild} alt="Weinberg im Frankensteiner Land" sizes="100vw" priority />
               ) : (
                 <div className="v2-hero-fallback" aria-hidden="true" />
@@ -283,6 +313,12 @@ export default function HomePage() {
                     {produkt.variante && <p className="v3-gelee-variante">{produkt.variante}</p>}
                     <h3 className="v3-gelee-name">{produkt.name}</h3>
                     <p className="v3-gelee-besch">{produkt.beschreibung}</p>
+                    {typeof produkt.preis === 'number' && (
+                      <p className="v3-gelee-preiszeile">
+                        <span className="v3-gelee-preis">{formatPreis(produkt.preis)}</span>
+                        <span className="v3-gelee-einheit">pro Glas</span>
+                      </p>
+                    )}
                   </div>
                 </article>
               ))}

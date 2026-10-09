@@ -31,6 +31,7 @@ export const WEINE: Wein[] = [
     rebsorte: 'Rivaner & Cabernet Blanc',
     beschreibung:
       'Unser heimischer Weißwein – eine Cuvée aus Rivaner und Cabernet Blanc. Frisch, saftig und angenehm unkompliziert: Wein, der nach Zuhause schmeckt.',
+    preis: 8.5,
     flaschengroesse: '0,75 l',
     bild: '/bilder/weine/bartholomaeus.webp',
     ausverkauft: false,
@@ -41,6 +42,7 @@ export const WEINE: Wein[] = [
     rebsorte: 'Cabernet Blanc',
     beschreibung:
       'Unser trockener Weißwein für jeden Tag – klar, animierend und mit feiner Frucht. Der perfekte Begleiter für laue Abende im Grünen.',
+    preis: 8.5,
     flaschengroesse: '0,75 l',
     bild: '/bilder/weine/ausserhalb-weiss.webp',
     ausverkauft: false,
@@ -51,6 +53,7 @@ export const WEINE: Wein[] = [
     rebsorte: 'Regent & Cabernet Cortis',
     beschreibung:
       'Unser Rosé: zartrosa, fruchtig und herrlich leicht. Sommer im Glas – am besten gut gekühlt im Weinberg oder auf der Terrasse.',
+    preis: 8.5,
     flaschengroesse: '0,75 l',
     bild: '/bilder/weine/ausserhalb-rose.webp',
     ausverkauft: false,
@@ -61,6 +64,7 @@ export const WEINE: Wein[] = [
     rebsorte: 'Riesling · alkoholfrei',
     beschreibung:
       'Unser alkoholfreier Riesling: der volle Riesling-Genuss – aber ganz ohne Alkohol. Null Promille, null Kompromisse.',
+    preis: 8.5,
     flaschengroesse: '0,75 l',
     bild: '/bilder/weine/0-nix.webp',
     ausverkauft: false,
@@ -71,6 +75,7 @@ export const WEINE: Wein[] = [
 export type Produkt = {
   name: string
   variante?: string // z. B. „Passierte Cuvée"
+  preis?: number // in Euro
   beschreibung: string
   badge?: string // z. B. „Bio-Qualität"
   bild?: string
@@ -80,6 +85,7 @@ export const GELEE: Produkt[] = [
   {
     name: 'Trauben-Gelee Weiß',
     variante: 'Passierte Cuvée',
+    preis: 4.3,
     beschreibung:
       'Feines Weingelee aus unseren weißen Trauben – hell, fruchtig und zart. Ohne künstliche Farb- und Konservierungsstoffe, hausgemacht.',
     badge: 'Bio-Qualität',
@@ -88,6 +94,7 @@ export const GELEE: Produkt[] = [
   {
     name: 'Trauben-Gelee Rot',
     variante: 'Passierte Cuvée',
+    preis: 4.3,
     beschreibung:
       'Kräftiges Weingelee aus unseren roten Trauben – tief, aromatisch und vollmundig. Ohne künstliche Farb- und Konservierungsstoffe, hausgemacht.',
     badge: 'Bio-Qualität',
@@ -145,7 +152,10 @@ export const KONTAKT = {
 
 // Bild-Pfade unter /public. Leer lassen = schöner Verlauf/Platzhalter statt Bild.
 export const BILDER = {
-  hero: '', // z. B. '/bilder/hero.jpg' (Querformat, Weinberg)
+  heroVideo: '/bilder/hero.mp4', // Drohnen-Reel über Nieder-Ramstadt (Querformat, ohne Ton)
+  heroVideoMobile: '/bilder/hero-mobile.mp4', // kleinere Version für Mobil (spart Daten)
+  heroPoster: '/bilder/hero-poster.jpg', // Standbild, bis das Video lädt
+  hero: '', // optionales Standbild statt Video (z. B. '/bilder/hero.jpg')
   ueber: '/bilder/ueber.webp', // Tim & Frank im Weinberg
   logo: '', // z. B. '/bilder/logo.png' (Header/Favicon)
   // Social-/Link-Vorschau (Open Graph). Vorerst das Bartholomäus-Bild.

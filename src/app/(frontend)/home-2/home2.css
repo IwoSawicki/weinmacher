@@ -208,6 +208,26 @@
   position: absolute;
   inset: 0;
 }
+.v2-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Mobil die kleinere Video-Version laden, Desktop die große */
+.v2-hero-video-mobile {
+  display: none;
+}
+@media (max-width: 768px) {
+  .v2-hero-video-desktop {
+    display: none;
+  }
+  .v2-hero-video-mobile {
+    display: block;
+  }
+}
 /* Verlauf-Hintergrund, solange kein Hero-Foto hinterlegt ist */
 .v2-hero-fallback {
   position: absolute;

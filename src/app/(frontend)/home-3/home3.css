@@ -581,8 +581,8 @@
 /* WEINGELEE */
 .v3-grid-gelee {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: clamp(20px, 3vw, 40px);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 300px));
+  gap: clamp(20px, 3vw, 36px);
   margin-top: clamp(12px, 2vw, 24px);
 }
 .v3-gelee-karte {
@@ -647,6 +647,24 @@
   line-height: 1.7;
   color: var(--muted);
   max-width: 440px;
+}
+.v3-gelee-preiszeile {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.v3-gelee-preis {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.v3-gelee-einheit {
+  font-size: 11.5px;
+  color: var(--muted);
 }
 .v3-gelee-hinweis {
   margin: clamp(28px, 4vw, 44px) 0 0;
