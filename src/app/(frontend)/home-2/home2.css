@@ -208,6 +208,15 @@
   position: absolute;
   inset: 0;
 }
+/* Verlauf-Hintergrund, solange kein Hero-Foto hinterlegt ist */
+.v2-hero-fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 70% 8%, rgba(165, 121, 63, 0.38), transparent 60%),
+    radial-gradient(100% 80% at 18% 92%, rgba(109, 74, 126, 0.5), transparent 60%),
+    linear-gradient(160deg, #2c2330 0%, #241d22 45%, #1b161a 100%);
+}
 .v2-hero-verlauf {
   position: absolute;
   inset: 0;

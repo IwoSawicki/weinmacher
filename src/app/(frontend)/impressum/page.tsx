@@ -1,24 +1,18 @@
 import type { Metadata } from 'next'
-import { getPayload } from 'payload'
 
 import { Footer } from '@/components/sections/Footer'
 import { VorschauNav } from '@/components/VorschauNav'
-import config from '@/payload.config'
+import { KONTAKT } from '@/lib/inhalte'
 
 import '../detail.css'
 
-export const dynamic = 'force-dynamic'
-
 export const metadata: Metadata = {
-  title: 'Impressum | Weinmacher Mühltal',
+  title: 'Impressum | Nieder-Ramstädter Weinmacher',
 }
 
-export default async function ImpressumPage() {
-  const payload = await getPayload({ config: await config })
-  const kontakt = await payload.findGlobal({ slug: 'kontakt' })
-
-  const telefon = kontakt.telefon || '06151 6795 768'
-  const email = kontakt.email || 'koeth.weinbau@gmx.de'
+export default function ImpressumPage() {
+  const telefon = KONTAKT.telefon
+  const email = KONTAKT.email
 
   return (
     <div className="det">
@@ -121,7 +115,7 @@ export default async function ImpressumPage() {
         </p>
 
       </div>
-      <Footer kontakt={kontakt} />
+      <Footer />
     </div>
   )
 }

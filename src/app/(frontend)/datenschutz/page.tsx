@@ -1,26 +1,20 @@
 import type { Metadata } from 'next'
-import { getPayload } from 'payload'
 import React from 'react'
 
 import { Footer } from '@/components/sections/Footer'
 import { VorschauNav } from '@/components/VorschauNav'
-import config from '@/payload.config'
+import { KONTAKT } from '@/lib/inhalte'
 
 import '../detail.css'
 
-export const dynamic = 'force-dynamic'
-
 export const metadata: Metadata = {
-  title: 'Datenschutzerklärung | Weinmacher Mühltal',
+  title: 'Datenschutzerklärung | Nieder-Ramstädter Weinmacher',
 }
 
-export default async function DatenschutzPage() {
-  const payload = await getPayload({ config: await config })
-  const kontakt = await payload.findGlobal({ slug: 'kontakt' })
-
-  const name = kontakt.name || 'Nieder-Ramstädter Weinmacher'
-  const adresse = kontakt.adresse || 'Weinbau Köth & Raffold KG\nGriesbachweg 16\n64367 Mühltal'
-  const email = kontakt.email || 'koeth.weinbau@gmx.de'
+export default function DatenschutzPage() {
+  const name = KONTAKT.name
+  const adresse = `${KONTAKT.firmierung}\n${KONTAKT.adresse}`
+  const email = KONTAKT.email
 
   return (
     <div className="det">
@@ -123,7 +117,7 @@ export default async function DatenschutzPage() {
           tatsächlich eingesetzten Dienste anpassen.
         </p>
       </div>
-      <Footer kontakt={kontakt} />
+      <Footer />
     </div>
   )
 }

@@ -1,20 +1,9 @@
 import React from 'react'
 
-import type { Kontakt } from '@/payload-types'
+import { KONTAKT } from '@/lib/inhalte'
 
-// Fallback-Inhalte, bis das Kontakt-Global gepflegt ist
-const FALLBACK = {
-  name: 'Nieder-Ramstädter Weinmacher',
-  adresse: 'Griesbachweg 16\n64367 Mühltal',
-  telefon: '06151 6795 768',
-  email: 'koeth.weinbau@gmx.de',
-}
-
-export function Footer({ kontakt }: { kontakt: Kontakt }) {
-  const name = kontakt.name || FALLBACK.name
-  const adresse = [name, kontakt.adresse || FALLBACK.adresse].join('\n')
-  const telefon = kontakt.telefon || FALLBACK.telefon
-  const email = kontakt.email || FALLBACK.email
+export function Footer() {
+  const { name, adresse, telefon, email, instagram, facebook } = KONTAKT
 
   return (
     <footer id="kontakt" className="footer">
@@ -23,7 +12,7 @@ export function Footer({ kontakt }: { kontakt: Kontakt }) {
           <div data-reveal="">
             <p className="kicker">Kontakt</p>
             <h2 className="footer-titel">Besuch uns im Mühltal.</h2>
-            <p className="footer-adresse">{adresse}</p>
+            <p className="footer-adresse">{[name, adresse].join('\n')}</p>
           </div>
           <div data-reveal="">
             <p className="footer-label">Erreichbarkeit</p>
@@ -36,15 +25,15 @@ export function Footer({ kontakt }: { kontakt: Kontakt }) {
               )}
               <a href={`mailto:${email}`}>{email}</a>
             </p>
-            {(kontakt.instagram || kontakt.facebook) && (
+            {(instagram || facebook) && (
               <div className="footer-social">
-                {kontakt.instagram && (
-                  <a href={kontakt.instagram} target="_blank" rel="noopener noreferrer">
+                {instagram && (
+                  <a href={instagram} target="_blank" rel="noopener noreferrer">
                     Instagram
                   </a>
                 )}
-                {kontakt.facebook && (
-                  <a href={kontakt.facebook} target="_blank" rel="noopener noreferrer">
+                {facebook && (
+                  <a href={facebook} target="_blank" rel="noopener noreferrer">
                     Facebook
                   </a>
                 )}

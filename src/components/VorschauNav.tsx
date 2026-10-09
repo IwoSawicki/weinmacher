@@ -18,7 +18,7 @@ export function VorschauNav() {
     <>
       <nav className="det-nav">
         <a href="/" className="det-nav-logo">
-          Weinmacher <span>Mühltal</span>
+          Nieder-Ramstädter <span>Weinmacher</span>
         </a>
         <div className="det-nav-links">
           {LINKS.map((link) => (

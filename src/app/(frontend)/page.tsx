@@ -1,19 +1,17 @@
-import { RichText } from '@payloadcms/richtext-lexical/react'
 import React from 'react'
 
 import { Bild } from '@/components/Bild'
 import { ScrollReveal } from '@/components/ScrollReveal'
-import { ladeStartseitenDaten } from '@/lib/homepageData'
 import {
   formatEventDatum,
   formatEventDatumOnly,
   formatPreis,
   mapsHref,
-  normalisiereLink,
   parseOeffnungszeiten,
   WEINART_LABELS,
   weinartIstBronze,
 } from '@/lib/format'
+import { BILDER, kommendeEvents, KONTAKT, WEINE } from '@/lib/inhalte'
 
 import { CountUp } from './CountUp'
 import { EventsCountdown } from './EventsCountdown'
@@ -21,10 +19,6 @@ import { Interactions } from './Interactions'
 import { Nav2 } from './home-2/Nav2'
 import './home-2/home2.css'
 import './home-3/home3.css'
-
-// Inhalte kommen aus dem CMS – immer zur Laufzeit rendern, damit Änderungen
-// sofort live sind (und der Docker-Build keine Datenbank braucht)
-export const dynamic = 'force-dynamic'
 
 const MARQUEE_WORDS = [
   'Riesling',
@@ -62,19 +56,18 @@ function MarqueeSequence() {
   )
 }
 
-export default async function HomePage() {
-  const { weine, events, kontakt, website } = await ladeStartseitenDaten()
+export default function HomePage() {
+  const weine = WEINE
+  const events = kommendeEvents()
 
-  const name = kontakt.name || 'Nieder-Ramstädter Weinmacher'
-  const email = kontakt.email || 'koeth.weinbau@gmx.de'
-  const telefon = kontakt.telefon || '06151 6795 768'
-  const adresse = kontakt.adresse || 'Griesbachweg 16\n64367 Mühltal'
+  const name = KONTAKT.name
+  const email = KONTAKT.email
+  const telefon = KONTAKT.telefon
+  const adresse = KONTAKT.adresse
 
-  const heroBild = website?.heroBild
-  const ueberBild = website?.ueberBild
-  const logo = website?.logo
-  const logoUrl =
-    logo && typeof logo === 'object' ? logo.sizes?.favicon?.url || logo.url || undefined : undefined
+  const heroBild = BILDER.hero
+  const ueberBild = BILDER.ueber
+  const logoUrl = BILDER.logo || undefined
 
   return (
     <>
@@ -85,17 +78,9 @@ export default async function HomePage() {
           <div className="v2-hero-frame">
             <div className="v2-hero-img">
               {heroBild ? (
-                <Bild
-                  media={heroBild}
-                  alt="Weinberg im Frankensteiner Land"
-                  size="hero"
-                  sizes="100vw"
-                  priority
-                />
+                <Bild src={heroBild} alt="Weinberg im Frankensteiner Land" sizes="100vw" priority />
               ) : (
-                <div className="ph" aria-hidden="true">
-                  Hero: Weinberg im Abendlicht
-                </div>
+                <div className="v2-hero-fallback" aria-hidden="true" />
               )}
             </div>
             <div className="v2-hero-verlauf" />
@@ -177,15 +162,12 @@ export default async function HomePage() {
                 <div className="v3-ueber-bild">
                   {ueberBild ? (
                     <Bild
-                      media={ueberBild}
+                      src={ueberBild}
                       alt="Tim und Frank Köth"
-                      size="hero"
                       sizes="(max-width: 960px) 100vw, 45vw"
                     />
                   ) : (
-                    <div className="ph" aria-hidden="true">
-                      Porträt: Tim &amp; Frank
-                    </div>
+                    <div className="v3-ueber-fallback" aria-hidden="true" />
                   )}
                 </div>
                 <p className="v3-zitat">
@@ -220,7 +202,7 @@ export default async function HomePage() {
                   const artZeile = WEINART_LABELS[wein.weinart] ?? ''
                   return (
                     <article
-                      key={wein.id}
+                      key={wein.name}
                       data-reveal=""
                       className={`v3-wein${wein.ausverkauft ? ' ist-ausverkauft' : ''}`}
                     >
@@ -228,9 +210,8 @@ export default async function HomePage() {
                       <div className="v3-wein-bild">
                         {wein.bild ? (
                           <Bild
-                            media={wein.bild}
+                            src={wein.bild}
                             alt={wein.name}
-                            size="card"
                             sizes="(max-width: 960px) 100vw, 25vw"
                           />
                         ) : (
@@ -240,6 +221,7 @@ export default async function HomePage() {
                         )}
                       </div>
                       <div className="v3-wein-body">
+                        {wein.kicker && <p className="v3-wein-kicker">{wein.kicker}</p>}
                         {artZeile && (
                           <p
                             className={`v3-wein-art${weinartIstBronze(wein.weinart) ? ' ist-bronze' : ''}`}
@@ -283,14 +265,10 @@ export default async function HomePage() {
 
               <div className="evt3-liste">
                 {events.map((event) => {
-                  const pdf =
-                    event.pdf && typeof event.pdf === 'object' && event.pdf.url
-                      ? event.pdf.url
-                      : null
                   const maps = mapsHref(event.kartenLink, event.ort)
                   return (
                     <article
-                      key={event.id}
+                      key={`${event.titel}-${event.datum}`}
                       data-reveal=""
                       className={`evt2-card${event.ausgebucht ? ' ist-ausgebucht' : ''}`}
                     >
@@ -339,30 +317,15 @@ export default async function HomePage() {
                       )}
                       {event.beschreibung && (
                         <div className="evt2-besch">
-                          <RichText data={event.beschreibung} />
+                          <p>{event.beschreibung}</p>
                         </div>
                       )}
                       <div className="evt2-foot">
                         {event.preis && <p className="evt2-preis">{event.preis}</p>}
                         <div className="evt2-btns">
-                          {pdf && (
-                            <a
-                              href={pdf}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="v3-btn-pdf"
-                            >
-                              Details (PDF)
-                            </a>
-                          )}
-                          {!event.ausgebucht && event.anmeldeLink && (
-                            <a
-                              href={normalisiereLink(event.anmeldeLink)}
-                              className="v3-btn-anmelden"
-                            >
-                              Anmelden <span style={{ fontSize: 15, lineHeight: 1 }}>→</span>
-                            </a>
-                          )}
+                          <a href={`mailto:${email}`} className="v3-btn-anmelden">
+                            Anfrage <span style={{ fontSize: 15, lineHeight: 1 }}>→</span>
+                          </a>
                           {event.ausgebucht && <span className="v3-warteliste">Warteliste</span>}
                         </div>
                       </div>
@@ -437,10 +400,20 @@ export default async function HomePage() {
                   <br />
                   <a href={`mailto:${email}`}>{email}</a>
                 </p>
-                <div className="v3-social">
-                  <a href={kontakt.instagram || 'https://instagram.com'}>Instagram</a>
-                  <a href={kontakt.facebook || 'https://facebook.com'}>Facebook</a>
-                </div>
+                {(KONTAKT.instagram || KONTAKT.facebook) && (
+                  <div className="v3-social">
+                    {KONTAKT.instagram && (
+                      <a href={KONTAKT.instagram} target="_blank" rel="noopener noreferrer">
+                        Instagram
+                      </a>
+                    )}
+                    {KONTAKT.facebook && (
+                      <a href={KONTAKT.facebook} target="_blank" rel="noopener noreferrer">
+                        Facebook
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
             <p data-reveal="" className="v3-watermark">
